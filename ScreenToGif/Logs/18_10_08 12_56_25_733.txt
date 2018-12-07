@@ -1,0 +1,19 @@
+► Title - 
+	Automatic clean up
+▬ Message - 
+	Value cannot be null.
+Parameter name: path1
+○ Type - 
+	System.ArgumentNullException
+♦ [Version] Date/Hour - 
+	[2.14.1] 10/08/2018 12:56:25
+▲ Source - 
+	mscorlib
+▼ TargetSite - 
+	System.String Combine(System.String, System.String, System.String)
+♠ StackTrace - 
+   at System.IO.Path.Combine(String path1, String path2, String path3)
+   at ScreenToGif.Model.ApplicationViewModel.ClearTemporaryFilesTask()
+
+----------------------------------
+

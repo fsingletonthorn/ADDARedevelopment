@@ -1,0 +1,276 @@
+---
+title: "Laboratory Exercise 10"
+subtitle:  "Multilevel modeling 2: Random intercept and random slopes models"
+output:
+  html_document:
+  toc: true
+  toc_float: true
+  toc_collapsed: true
+toc_depth: 3
+number_sections: true
+theme: lumen
+---
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(echo = T,
+                      results = "hide",
+                     warning = FALSE)
+
+for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats')) { # start a loop
+    if (!require(package, character.only=T, quietly=T)) {
+        install.packages(package)
+        library(package, character.only=T)
+    }
+}
+
+```
+
+# {.tabset  .tabset-fade}
+
+## Part 1 - Data importing and tidying
+
+#### Starting up
+
+As per last week, download and unzip today's data into a new folder and open the file "tutorial_10.Rproj". This will open up R and R studio and make sure that you don't have to worry about filepaths.
+
+### Setting up R to run our analyses
+
+Next, try running the following code by copying and pasting (<kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd>) it into your R session's console.
+
+```{r eval = F}
+# The following code functions ensure that the packages (like sub-programs that R uses to do things) are installed and attached
+for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats')) {
+    if(!require(package, character.only=T, quietly=T)) {
+        install.packages(package)
+        library(package, character.only=T)
+    }
+}
+
+```
+
+#### The data
+The data for this week's exercise comes is the same as last weeks - it is an organizational psychology dataset described in Klein et al (2000), and is stored as *siop_merged.csv*. 
+
+#### Variables
+
+The file *siop_merge.csv* contains 750 employee-level observations nested within 50 work-groups. Ignoring the variable group ID (grpid), there are eight standardized variables, where a higher score indicates a higher level (e.g., higher pay or more negative leadership behaviours). These data were collected by individual survey of the employees, so measure individual level perceptions, except for the variable "physen", which is the group level "physical work enviroment". 
+
+
+Table 1. The variable names and variables included in *siop_merge.csv*.
+
+```{r echo = F}
+knitr::kable(data_frame("Variable name" = c("grpid", "jobsat", "cohes", "posaff", "pay", "neglead", "wload", "tasksig", "physen"), 
+           "Description"  = c("Group ID", "Job satisfaction", "Perceived cohesion", "Positive affect", "Pay", "Perceived Negative leader behaviours", "Perceived workload", "Perceived task significance", "physical work enviroment (group level)")))
+
+```
+
+
+The first thing we need to do is to read in the data. Copy and paste the following into your R console to load today's data. 
+
+```{r}
+
+siop_merged <- read.csv("siop_merged.csv")
+
+```
+
+
+<br>
+<br>
+
+#### The data 
+
+The first variables we'll be dealing with today are  "Job satisfaction", "Positive affect" and "physical work enviroment (group level)". As always its a good idea to plot your data. This data has three variables, so you can either plot it with facets, or use a 3D plot. 3D plots are usually useless unless they are interactive, where they can be pretty and sometimes helpful for deveoping an understanding of you data. Click and drag this one to have a look at your data. 
+
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+  
+p <- plot_ly(y = siop_merged$jobsat, x = siop_merged$posaff,
+        z = siop_merged$physen) %>% 
+  add_trace(type="scatter3d", showlegend = FALSE, opacity = 1,
+            color = as.factor(siop_merged$physen))  %>% 
+layout(scene = list(yaxis = list(title = 'Job satisfaction'),
+                     xaxis = list(title = 'Positive affect'),
+                     zaxis = list(title = 'Physical enviroment')))
+
+```
+
+`r p`
+
+Figure 1. A 3D scatterplot of Job satisfaction, positive affect and group Physical enviroment, colour indicates group membership.
+
+<br>
+
+<br>
+
+## Part 2 - Random intercepts model with a predictor at the group level
+
+Let's fit a random intercept model with one individual level predictor - we'll start with positive affect - and one group level predictor - physical work enviroment. 
+
+This model with random intercepts for group and a single level 1 predictor (positive affect) may be written:
+
+$JobSat_{ij} = \gamma_{00} +  \gamma_{10} PosAff_{ij}+ \gamma_{01}PhysEn_{0j} + u_{0j}  + \epsilon_{ij}$
+
+This means each person's job satisfaction is equal to the overall intercept ( $\gamma_{00}$ ), a regression term times their positive affect ( $\gamma_{10}(PosAff_{ij})$ ), a regression term times the group level predictor ( $\gamma_{01}PhysEn_{0j}$ ), a random effect for their group ($u_{0j}$, like an error term for group), plus an error term ($\epsilon_{ij}$) (i.e., the residual, as the MLM will not perfectly predict their score).
+
+```{r}
+PA_PE_model <- lmer("jobsat ~ 1 + posaff + physen + (1 | grpid)", data = siop_merged)
+
+```
+
+```{r echo = F}
+
+item <-knitr::kable(data_frame("Terms"=c("jobsat ~","1 +", "posaff", "physen", "(1 | grpid)"), "Meaning"= c("job satisfaction is predicted by",
+"An intercept parameter which is the same for everyone", 
+"a regression coefficient times each person's positive affect", "a regression coefficient times each group's physical enviroment",  "A random intercept for each group")))
+
+```
+
+##### Which should be read as:
+
+`r item`
+
+Remember *summary(PA_PE_model)* is useful in getting a summary of your output out! 
+
+```{r}
+summary(PA_PE_model)
+```
+
+This model says that the relationship between positive affect and job satisfaction is the same in every group, but that the baseline - the intercept - can vary by group, and that we can predict the group intercepts using the group's score on physical enviroment. To visulise this, we can plot job satisfaction by positive affect and draw a regression line for each group. The model does not actually specify an intercept for each group, but rather assumes that the intercepts come from a normal distribution with a mean of the overall intercept and a variance as specified in the random effects output above. The output we might be interested is the variance of these groups' intercepts as opposed to their individual values. 
+
+
+<details><summary>Figure 2</summary>
+<p>
+
+```{r echo=F}
+
+ggplot(siop_merged, aes(x = posaff, y = jobsat, group = as.factor(grpid), colour = as.factor(grpid))) + 
+  geom_point()  + xlab("Positive affect") + ylab("Job satisfaction") + 
+  geom_abline(slope = PA_PE_model@beta[2], intercept = coef(PA_PE_model)[[1]][,1]+(coef(PA_PE_model)[[1]][,3]*unique(siop_merged$physen)), colour = as.factor(1:50), alpha = .5) + theme_classic()+ theme(legend.position="none")
+
+
+```
+
+Figure 2. Job satisfaction by positive affect, lines show the estimated relationship by group, colour indicates group membership.
+
+</p>
+</details>
+
+<br>
+
+
+## Part 3 - Random intercepts and random slopes 
+
+Now we will include a random slope for the association between positive affect and job satisfaction as well as a group level predictor for the intercept, but without other predictors for the slope. This means that positive affect becomes both a fixed and a random effect. 
+
+This model with random intercepts and a random slope for group, a single group level predictor (physical work enviroment), and a single level 1 predictor (positive affect) may be written:
+
+$JobSat_{ij} = \gamma_{00} +  \gamma_{10} PosAff_{ij} + \gamma_{01} PhysEn_{0j} + u_{1j}PosAff_{ij} + u_{0j}  + \epsilon_{ij}$
+
+This means each person's job satisfaction is equal to the overall intercept ( $\gamma_{00}$ ), a regression term times their positive affect $\gamma_{10} (PosAff_{ij})$, a regression term times the group level predictor $\gamma_{01}PhysEn_{0j}$, a random effect for positive affect ( $u_{1j}PosAff_{ij}$ ), a random effect for their group ($u_{0j}$, like an error term for group), plus an error term ($\epsilon_{ij}$) (i.e., the residual, as the MLM will not perfectly predict their score).
+
+```{r}
+RS_model <- lmer("jobsat ~ 1 + posaff + physen + (1 + posaff | grpid)", data = siop_merged)
+```
+
+```{r echo = F}
+
+item <-knitr::kable(data_frame("Terms"=c("jobsat ~","1 +", "posaff", "physen", "(1 + posaff | grpid)"), "Meaning"= c("job satisfaction is predicted by",
+"An intercept parameter which is the same for everyone", 
+"a regression coefficient times each person's positive affect", "a regression coefficient times each group's physical enviroment",  "A random intercept and a random slope for the relationship between positive affect and job satisfaction for each group")))
+
+```
+
+##### Which should be read as:
+
+`r item`
+
+Remember *summary(RS_model)* is useful in getting a summary of your output out! 
+
+```{r echo = TRUE}
+summary(RS_model)
+```
+
+That this model says that the relationship between positive affect and job satisfaction changes in different groups by some estimated ammount, and that we can predict the groups' true mean scores using their group's physical enviroment. To visulise this, we can plot job satisfaction by positive affect and draw a regression line for each group. The regression line slopes and intercepts change by group, because we now have random slopes and intercepts, allowing the relationship between positive affect and job satisfaction to change by group. Conceptually, this model is better thought of as assuming that the group slopes and intercepts come from a normal distribution some overall mean (i.e., the fixed effects for the intercepts and slopes) and an estimated variance. The output we're often interested in above and beyond the fixed effects is the variance of these groups' intercepts, and the variance of the groups slopes.  
+
+<details open><summary>Figure 3</summary>
+<p>
+
+```{r echo=F}
+
+ggplot(siop_merged, aes(y = jobsat, x = posaff, group = as.factor(grpid), colour = as.factor(grpid))) + 
+  geom_point()  + xlab("Positive affect") + ylab("Job satisfaction") + 
+  geom_abline(slope = coef(RS_model)[[1]][,2], intercept = coef(RS_model)[[1]][,1]+(coef(RS_model)[[1]][,3]*unique(siop_merged$physen)), colour = as.factor(1:50), alpha = .5) + theme_classic()+ theme(legend.position="none")
+
+```
+
+Figure 3. Job satisfaction by positive affect, lines show the estimated relationship by group, colour indicates group.
+
+</p>
+</details>
+
+<br>
+
+
+
+## Part 4 - Random intercepts and random slopes with a group level predictor
+
+Let's fit a random intercept and slopes model with one individual level predictor - again positive affect - and one group level predictor - physical work enviroment, and one group level predictor of the random effects. 
+
+This model with random slopes and intercepts for group, a single level 1 predictor (positive affect), and an interaction between workload and physical enviroment may be written:
+
+$JobSat_{ij} = \gamma_{00} +  \gamma_{10} PosAff_{ij}+ \gamma_{01}PhysEn_{0J} + u_{0j} + \gamma_{11}(PosAff_{ij}\times PhysEn_{0J}) + \epsilon_{ij}$
+
+This means each person's job satisfaction is equal to the overall intercept ( $\gamma_{00}$ ), a regression term times their positive affect $\gamma_{10} (PosAff_{ij})$, a regression term times the group level predictor $\gamma_{01}PhysEn + u_{0j}$, 
+a random effect for their group ($u_{0j}$, like an error term for group), plus an error term ($\epsilon_{ij}$) (i.e., the residual, as the MLM will not perfectly predict their score).
+
+```{r}
+RS_model_2 <- lmer("jobsat ~ 1 + physen + posaff + posaff * physen + (1 + posaff | grpid)", data = siop_merged)
+
+```
+
+```{r echo = F}
+
+item <-knitr::kable(data_frame("Terms"=c("jobsat ~","1 +", "posaff", "physen", "physen:posaff", "(1 + posaff | grpid)"), "Meaning"= c("job satisfaction is predicted by",
+"An intercept parameter which is the same for everyone", 
+"a regression coefficient times each person's positive affect", "a regression coefficient times each group's physical enviroment", "a regression coefficient times the product of physical enviroment times positive affect", "A random intercept and a random slope for the relationship between positive affect and job satisfaction for each group")))
+
+```
+
+##### Which should be read as:
+
+`r item`
+
+Remember *summary(PA_PE_model)* is useful in getting a summary of your output out! 
+
+```{r}
+summary(RS_model_2)
+
+
+```
+
+That this model says that the relationship between positive affect and job satisfaction changes in different groups by some estimated ammount, and that we can predict the groups' true mean scores using their group's physical enviroment, and that the relationship between positive affect and job satisfaction is influenced by the physical enviroment.
+
+To visulise this, we can again plot job satisfaction by positive affect and draw a regression line for each group. The regression line slopes and intercepts change by group, because we now have random slopes and intercepts, allowing the relationship between positive affect and job satisfaction to change by group. 
+
+
+<details open><summary>Figure 4</summary>
+<p>
+
+```{r echo=F}
+
+ggplot(siop_merged, aes(y = jobsat, x = posaff, group = as.factor(grpid), colour = as.factor(grpid))) + 
+  geom_point()  + xlab("Positive affect") + ylab("Job satisfaction") + 
+  geom_abline(slope = coef(RS_model_2)[[1]][,3] + (coef(RS_model_2)[[1]][,4]*unique(siop_merged$physen)), intercept = coef(RS_model_2)[[1]][,1]+(coef(RS_model_2)[[1]][,2]*unique(siop_merged$physen)), colour = as.factor(1:50), alpha = .5) + theme_classic()+ theme(legend.position="none")
+
+
+```
+
+Figure 4. Job satisfaction by positive affect, lines show the estimated relationship by group, colour indicates group.
+
+</p>
+</details>
+
+<br>
+
+
