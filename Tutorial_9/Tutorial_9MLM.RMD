@@ -341,7 +341,7 @@ $JobSat_{ij} = \gamma_{00} + \gamma_{10} PosAff_{ij} + u_{0j} + \epsilon_{ij}$
 
 This means each person's job satisfaction is equal to the overall intercept ( $\gamma_{00}$ ), 
 a regression term times their positive affect $\gamma_{10} (PosAff_{ij})$,
-a random effect for their group ($u_{0j}$, like an error term for group), plus an error term ($\epsilon_{ij}$) (i.e., the residual, as the MLM will not perfectly predict their score).
+a random effect for their group ($u_{0j}$), plus an error term ($\epsilon_{ij}$) (i.e., the residual, as the MLM will not perfectly predict their score).
 
 To write out this model in R all we need to do is add "+ posaff" (the variable name for positive affect) to the earlier null model. By tradition we'll put it after the intercept and before the random slopes.
 
