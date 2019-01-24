@@ -50,7 +50,7 @@ The first thing you should do is unzip all of "tutorial_9.zip" into a new folder
 Next, try running the following code by copying and pasting (<kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd>) it into your R session's console.
 
 ```{r eval = F}
-# The following code functions ensure that the packages (like sub-programs that R uses to do things) are installed and attached
+# The following code ensures that the packages (like sub-programs that R uses to do things) are installed and attached
 for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats')) {
     if(!require(package, character.only=T, quietly=T)) {
         install.packages(package)
@@ -164,7 +164,9 @@ siop_merged <- merge(siop, siop_group, by = "Key_Column")
 
 We want to merge "siop" and "siop_group" by the variable that exists in both datasets and designates the group. Change *"Key_Column"* in the code chunk above to the variable that exists in both data files that identifies the **Group ID**.
 
-#### Merge siop and siop_group by the group variable, so that each individual row of data has a measure of the 
+#### Merge siop and siop_group by the group variable, so that each individual row of data has a measure of the group level physical enviroment
+
+<br>
 
 **NOTE:** you will need to change "Key_Column" to the column name that exists in both "siop" and "siop_group"
 
@@ -287,7 +289,7 @@ Figure 1. job satisfaction by group ID, blue points show the best linear unbiase
 </details>
 
 ##### **Question 1**
-How large is the intercept of the model? Looking at the dependent variable  (their mean, range and standard deviation) why might the value be so low? Should we worry about this?
+How large is the intercept of the model? Looking at the dependent variable  (its mean, range and standard deviation) why might the value be so low? Does it look like this variable has been transformed and how? 
 
 Hint: 
 Try the following code:
@@ -381,12 +383,6 @@ Plotting this might help us understand what we've got here. We're saying that th
 ggplot(siop_merged, aes(y = jobsat, x = posaff, group = as.factor(grpid), colour = as.factor(grpid))) + 
   geom_point()  + xlab("Positive affect") + ylab("Job satisfaction") + 
   geom_abline(slope = PA_model@beta[2], intercept = PA_model@beta[1] + unlist(ranef(PA_model)), colour = as.factor(1:50), alpha = .5) +
-  theme_classic()+ theme(legend.position="none")
-
-
-ggplot(siop_merged, aes(y = jobsat, x = posaff, group = as.factor(grpid), colour = as.factor(grpid))) + 
-  geom_point()  + xlab("Positive affect") + ylab("Job satisfaction") + 
-  geom_abline(slope = PA_model@beta[2], intercept = coef(PA_model)[[1]][,1], colour = as.factor(1:50), alpha = .5) +
   theme_classic()+ theme(legend.position="none")
 
   

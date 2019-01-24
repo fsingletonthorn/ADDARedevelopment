@@ -1,5 +1,5 @@
 ---
-title: "Laboratory Exercise 5"
+title: "Laboratory 6"
 subtitle:  "CFA / SEM 1"
 output:
   html_document:
@@ -146,7 +146,7 @@ Click the ![](images/analysisOptionsButton.GIF) button to access the output opti
 
 If you had missing data you would have to click on the ‘Estimate means and intercepts’ button (or use more sophisticated methods of data imputation), but today you can leave this section alone.
 
-Options for printing and so forth are found on the ‘Output’ tab. Normally you would choose standardized estimates (as you should today). In Amos by default, the factor loadings are unstandardised regression weights and the lables on the curved double headed arrows covariances. Standardized estimates restores the more familiar look of standardised regression weights and correlations.
+Options for printing and so forth are found on the ‘Output’ tab. Normally you would choose standardized estimates (as you should today). In Amos by default, the factor loadings are unstandardised regression weights and the labels on the curved double headed arrows covariances. Standardized estimates restores the more familiar look of standardised regression weights and correlations.
 
 • Squared multiple correlations give us our communality estimates
 
@@ -202,9 +202,7 @@ You can click the text output using the ![](images/textOutput.PNG) button, which
 
 If any of those numbers are different, you might need to check with one of us! 
 
-
 <br>
-
 
 ## Interpreting the model 
 
@@ -219,22 +217,25 @@ B) Assessing model fit
 Violations of multivariate normality can cause our models to be incorrectly rejected or make our standard errors spuriously small (i.e., our model may think our estimates are much more precise than they actually are). Take a look at the assessment of normality and Mahalanobis distance tabs of the Amos output window to assess whether there are any signs of non-normality. 
 
 #### Questions about normality
+
 4) **Are there any signs of multivariate non-nomality? Specifically look at the multivariate kurtosis value and critial ratio, as well as the p1 and p2 values under the "Observations farthest from the centroid (Mahalanobis distance)" tab.** 
 
 
 5) **What statistical approach could we take in Amos if we saw severe violations of multivariate normality?** 
 
-6) **Use these methods to test (a) overall fit, and (b) to find confidence intervals around our regression weights models (you will have to estiamte your model twice, look at the slides for advice on how to do this). Are there any differences in interpretation that would result? Why or why not might this be the case?** 
+6) **Use these methods to test (a) overall fit, and (b) to find confidence intervals around our regression weights models (you will have to estimate your model twice, look at the slides for advice on how to do this). Are there any differences in interpretation that would result? Why or why not might this be the case?** 
 
+### B) Assessing fit 
 
+Navigate to the model fit page in the Amos output window. Taking a quick look at the fit indices and try to answer the following questions (take a look at the slides to help yourself out of course!):
 
+7) **Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit?**
 
+8) **Do small or large SRMR values indicate good fit? How about our SRMR?**
 
-HERE ASK QUESTIONS ABOUT MODEL FIT - USE EACH EXAMPLE 
+9)  **Do small or large CFIs indicate good fit? How about our CFI?** 
 
-
-
-
+10) **Do small or large RMSEAs indicate good fit? How about our RMSEA?**
 
 
 
@@ -255,10 +256,11 @@ use that instead?**
 Because that would implicitly assume that we've measured the theoretical constructs without measurement error. 
 
 Questions
+
 4) **Are there any signs of multivariate non-nomality? Specifically look at the multivariate kurtosis value and critial ratio, as well as the p1 and p2 values under the "Observations farthest from the centroid (Mahalanobis distance)" tab.** 
 
 
-<details><summary>How to find the assessmenet of normality tab</summary>
+<details><summary>How to find the assessment of normality tab</summary>
 <p>
 
 ![](images/normalityAssessment.gif)
@@ -281,9 +283,9 @@ Bootstrapping
 
 6) **Use these methods to test (a) overall fit, and (b) to find confidence intervals around our regression weights models (you will have to estiamte your model twice, look at the slides for advice on how to do this). Are there any differences in interpretation that would result? Why or why not might this be the case?** 
 
-To test overall fit, we can use the Bollen-Stein boostrap method.
+To test overall fit, we can use the Bollen-Stein bootstrap method.
 
-<details><summary>How to use and view the Bollen-Stein boostrap</summary>
+<details><summary>How to use and view the Bollen-Stein bootstrap</summary>
 <p>
 
 ![](images/bollen-stein.gif)
@@ -296,10 +298,10 @@ To test overall fit, we can use the Bollen-Stein boostrap method.
 The Bollen-Stein bootstrap is described in the Amos documentation:  
 "The Bollen-Stine bootstrap process involves the transformation of the data to a data set for which the null hypothesis (that the default model fits the data) is true. [...] Each bootstrap sample is sampled from this transformed data and a chi-square is computed for the fit of that bootstrapped data to the model. These chi-squares [...] are compared internally to the chi-square that was computed for the observed data fit to the model. [...] The proportion of times that the model 'fit worse or failed to fit', i.e. the number of times that the model chi-square for the bootstrapped sample exceeded the chi-square for the observed data, is the Bollen-Stine bootstrap p value."
 
-Using the Bollen-Stein boostrap to test overall fit, we see that the Bollen-Stein boostrap agrees with the parametric (distribution assuming) methods used before - the probability of getting the observed variance covariance matrix assuming that our model is correct is very low (when we ran this model, the Bollen-Stein model fit better in every single bootstrap). 
+Using the Bollen-Stein bootstrap to test overall fit, we see that the Bollen-Stein bootstrap agrees with the parametric (distribution assuming) methods used before - the probability of getting the observed variance covariance matrix assuming that our model is correct is very low (when we ran this model, the Bollen-Stein model fit better in every single bootstrap). 
 
 
-In order to test whether the standard errors (i.e., the standard deviation of the sampling distribution, or alternatively a measure of the amount of variability we expect in a value due to sampling variability alone) are well approximated by the normal approximation (and therefore the accompanying p values), we can use the ML bootstrap method. Make sure to bump up the number of Boostrap samples taken too. 
+In order to test whether the standard errors (i.e., the standard deviation of the sampling distribution, or alternatively a measure of the amount of variability we expect in a value due to sampling variability alone) are well approximated by the normal approximation (and therefore the accompanying p values), we can use the ML bootstrap method. Make sure to bump up the number of Bootstrap samples taken too. Here our data is very much multivariate normal - so the results are all basically identical. 
 
 <details><summary>How to use and view the Bootstrap ML estimated SEs</summary>
 <p>
@@ -313,6 +315,48 @@ In order to test whether the standard errors (i.e., the standard deviation of th
 
 <br>
 
+<details><summary>How to find model fit estimates</summary>
+<p>
+
+![](images/modelFit.gif)
+
+</p>
+</details>
+
+<br>
+
+<br>
+
+
+
+7) **Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit?** 
+
+Smaller chi square values indicate less discrepancy between the model variance covariance matrix and the data's. In this case, we have a fairly large chi square value relative to our degrees of freedom, which indicates we have somewhat poor fit.
+
+8) **Do small or large SRMR values indicate good fit? How about our SRMR?**
+
+The metric of SRMR can be loosely thought of as the averaged difference between the model's correlation matrix and the observed correlation matrix (albeit using an unusual method of averaging, and involving the model and observed variances, see [this post]( https://stats.stackexchange.com/questions/235872/what-is-the-formula-for-standardized-root-mean-residual-srmr-in-the-context-of) for a detailed description by a former tutor of this subject). It ranges between 0 and 1, and smaller values are better. 
+
+0.0418 is quite a good SRMR value 
+
+9)  **Do small or large CFIs indicate good fit? How about our CFI?**
+
+CFI values can be thought of as a ratio of how well your model fits the data compared to how well the null model fits. (The null model allows all the variables in the model to have variation but no correlations / associations between variables).
+
+$CFI = \frac{(\chi^2_{null} - df_{null}) - (\chi^2_{model} - df_{model})}{\chi^2_{null} - df_{null}}$
+
+Where values above 1 are set to 1, and values below 0 are set to equal 0. 
+
+This means CFI values close to 1 are good - your model is greatly out-performing the null model indicating a very good fit. Values close to 0 are quite bad on the other hand. In this case we have a CFI of .954, which is fairly postive. 
+
+
+10) **Do small or large RMSEAs indicate good fit? How about our RMSEA?**
+
+RMSEA is another "badness of fit" statistic, with larger values indicating more badness of fit. It acts to ‘reward’ models analysed with larger samples, and models with more degrees of freedom. Our RMSEA isn't great at .095, with 90% confidence intervals from .073 to .119, suggesting that we have at best mediocre fit and at worst fairly poor fit. 
+
+<br>
+
+<br>
 
 <br>
 
