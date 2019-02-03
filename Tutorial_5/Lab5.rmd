@@ -223,7 +223,7 @@ This will, in the above order, make Amos display the $\chi^2$ statistic, the deg
 <br>
 
 
-### 8. Run your model
+### 7. Run your model
 
 In order to run the model, you'll first need to **save your file**, and set up some analysis options.
 
@@ -281,7 +281,7 @@ Finally, you might want to get standardized output instead of unstandardized out
 
 <br>
 
-### 9. Viewing the model output
+### 8. Viewing the model output
 
 You can click the text output using the ![](images/textOutput.PNG) button, which gives you the full text output. Your output should look like this:
 
@@ -311,22 +311,17 @@ Navigate to the model fit page in the Amos output window. Taking a quick look at
 
 3) Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit? 
 
-4) Do small or large SRMR values indicate good fit? How about our SRMR?
-
-5)  Do small or large CFIs indicate good fit? How about our CFI? 
-
-6) Do small or large RMSEAs indicate good fit? How about our RMSEA?
+4) Do small or large RMSEAs indicate good fit? How about our RMSEA?
 
 #### Questions 7 - 9
 
 Finally, add correlations among the factors and rerun the model. Make sure to keep a record of the old output (e.g., take a screen shot). 
 
-7) Does model fit improve? 
+5) Does model fit improve? 
 
-8) Does it make theoretical sense to correlate these factors?
+6) Does it make theoretical sense to correlate these factors?
 
-9) Do any of the factor loadings noticeably change? 
-
+7) Do any of the factor loadings noticeably change? 
 
 
 ##  Splitting index
@@ -380,42 +375,52 @@ For the "S" factor, the strongest loading is onto S5, for the "f" factor, the st
 
 Looking at the "assessment of normality" tab in the output window, there are signs of strong non-normality (specifically, strong multivariate kurtosis). Perhaps using bootstrap methods would be a good idea for the purposes of estimating standard errors / significance testing (more on this later in semester).
 
+<details><summary>How to find the assessment of normality tab</summary>
+<p>
+
+![](images/normalityAssessment.gif)
+
+</p>
+</details>
+
+<br>
+
+
+<br>
+
+
+<details><summary>How to find model fit estimates</summary>
+<p>
+
+![](images/modelFit.gif)
+
+</p>
+</details>
+
+<br>
+
+<br>
+
 **3) Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit?**
 
 Smaller chi square values indicate less discrepancy between the model variance covariance matrix and the data's. In this case, we have a very large chi square value relative to our degrees of freedom, which indicates we have poor fit.
 
-**4) Do small or large SRMR values indicate good fit? How about our SRMR?**
 
-The metric of SRMR can be loosely thought of as the averaged difference between the model's correlation matrix and the observed correlation matrix (albeit using an unusual method of averaging, and involving the model and observed variances, see [this post]( https://stats.stackexchange.com/questions/235872/what-is-the-formula-for-standardized-root-mean-residual-srmr-in-the-context-of) for a detailed description by a former tutor of this subject). It ranges between 0 and 1, and smaller values are better. 
-
-Generally, .15 would not be considered good fit.
-
-**5)  Do small or large CFIs indicate good fit? How about our CFI?**
-
-CFI values can be thought of as a ratio of how well your model fits the data compared to how well the null model fits. (The null model allows all the variables in the model to have variation but no correlations / associations between variables).
-
-$CFI = \frac{(\chi^2_{null} - df_{null}) - (\chi^2_{model} - df_{model})}{\chi^2_{null} - df_{null}}$
-
-Where values above 1 are set to 1, and values below 0 are set to equal 0. 
-
-This means CFI values close to 1 are good - your model is greatly out-performing the null model indicating a very good fit. Values close to 0 are quite bad on the other hand. In this case we have a CFI of .77, which is not very good at all. 
-
-
-**6) Do small or large RMSEAs indicate good fit? How about our RMSEA?**
+**4) Do small or large RMSEAs indicate good fit? How about our RMSEA?**
 
 RMSEA is another "badness of fit" statistic, with larger values indicating more badness of fit. It acts to ‘reward’ models analysed with larger samples, and models with more degrees of freedom. Our RMSEA isn't great at .09, but it is the least bad of all of our indicators.
 
 #### After adding correlations among factors: 
 
-**7) Does model fit improve?** 
+**5) Does model fit improve?** 
 
 Yes, moderately, with the SRMR going to .10, RMSEA going down slightly (still .09 after rounding), and the CFI going down to .71, and the Chi Square statistic going to 476.55.
 
-**8) Does it make theoretical sense to correlate these factors?**
+**6) Does it make theoretical sense to correlate these factors?**
 
 This one you'll have to think about!
 
-**9) Do any of the factor loadings noticably change?** 
+**7) Do any of the factor loadings noticably change?** 
 
 Not really! Only minor changes. 
 

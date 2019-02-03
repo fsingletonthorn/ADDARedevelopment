@@ -298,7 +298,7 @@ To test overall fit, we can use the Bollen-Stein bootstrap method.
 The Bollen-Stein bootstrap is described in the Amos documentation:  
 "The Bollen-Stine bootstrap process involves the transformation of the data to a data set for which the null hypothesis (that the default model fits the data) is true. [...] Each bootstrap sample is sampled from this transformed data and a chi-square is computed for the fit of that bootstrapped data to the model. These chi-squares [...] are compared internally to the chi-square that was computed for the observed data fit to the model. [...] The proportion of times that the model 'fit worse or failed to fit', i.e. the number of times that the model chi-square for the bootstrapped sample exceeded the chi-square for the observed data, is the Bollen-Stine bootstrap p value."
 
-Using the Bollen-Stein bootstrap to test overall fit, we see that the Bollen-Stein bootstrap agrees with the parametric (distribution assuming) methods used before - the probability of getting the observed variance covariance matrix assuming that our model is correct is very low (when we ran this model, the Bollen-Stein model fit better in every single bootstrap). 
+Using the Bollen-Stein bootstrap to test overall fit, we see that the Bollen-Stein bootstrap agrees with the parametric (distribution assuming) methods used before - the probability of getting the observed variance covariance matrix assuming that our model is correct is very low (when we ran this model, the Bollen-Stein model fit better in every single bootstrap).
 
 
 In order to test whether the standard errors (i.e., the standard deviation of the sampling distribution, or alternatively a measure of the amount of variability we expect in a value due to sampling variability alone) are well approximated by the normal approximation (and therefore the accompanying p values), we can use the ML bootstrap method. Make sure to bump up the number of Bootstrap samples taken too. Here our data is very much multivariate normal - so the results are all basically identical. 
@@ -326,7 +326,6 @@ In order to test whether the standard errors (i.e., the standard deviation of th
 <br>
 
 <br>
-
 
 
 7) **Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit?** 
