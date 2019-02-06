@@ -271,15 +271,15 @@ This means each person's job satisfaction is equal to the overall intercept ($\g
 You can run the model in R by copying and pasting the following into your session (make sure you've loaded *siop_merged* first):
 
 ```{r}
-RS_model_2 <- lmer("jobsat ~ 1 + physen + posaff + posaff * physen + (1 + posaff | grpid)", data = siop_merged)
+RS_model_2 <- lmer("jobsat ~ 1 + posaff + physen + posaff * physen + (1 + posaff | grpid)", data = siop_merged)
 
 ```
 
 ```{r echo = F}
 
-item <-knitr::kable(data_frame("Terms"=c("jobsat ~","1 +", "posaff", "physen", "physen:posaff", "(1 + posaff | grpid)"), "Meaning"= c("job satisfaction is predicted by",
+item <-knitr::kable(data_frame("Terms"=c("jobsat ~","1 +", "posaff", "physen", "physen * posaff", "(1 + posaff | grpid)"), "Meaning"= c("job satisfaction is predicted by",
 "An intercept parameter which is the same for everyone", 
-"a regression coefficient times each person's positive affect", "a regression coefficient times each group's physical enviroment", "a regression coefficient times the product of physical enviroment times positive affect", "A random intercept and a random slope for the relationship between positive affect and job satisfaction for each group")))
+"a regression coefficient times each person's positive affect", "a regression coefficient times each group's physical enviroment", "a regression coefficient times the product of physical enviroment times positive affect (i.e., an interaction)", "A random intercept and a random slope for the relationship between positive affect and job satisfaction for each group")))
 
 ```
 
@@ -369,7 +369,6 @@ summary(RS_model)
 ```{r echo=TRUE, results = TRUE}
 summary(RS_model_2)
 ```
-
 
 
 ## Question Answers
