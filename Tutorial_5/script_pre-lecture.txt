@@ -1,0 +1,27 @@
+
+So, today we're going to talk about Confirmatory factor analysis and SEM - structural equation modeling
+
+First I'll give you a super super quick into to confirmatory factor analysis in an SEM framework, and then show you how to run models in AMOS - a SEM tool that will remind you of the late 90s but which is a pretty powerful program for visualizing and running structural equation models
+
+
+For today, we're going to think about SEM as more or less a mash up of factor analysis and regression ~ which is only approximately correct, and we'll give you a more technically correct definition next week.
+
+First it's important to think about the notation we'll be using 
+
+Squares / rectangles = observed variables
+Ellipses = unobserved variables 
+Circles = unobserved error terms
+regression coefficients are represented with arrows 
+correlation coefficients are represented with double headed curves 
+
+
+Lets think quickly of a normal 
+
+
+
+
+
+
+
+
+
