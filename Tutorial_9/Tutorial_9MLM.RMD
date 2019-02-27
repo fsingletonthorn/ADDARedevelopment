@@ -31,9 +31,11 @@ for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats',
 
 #### Open the project
 
-First thing to know is if you have any problems at any point let one of the tutors know and we'll come to help out! 
+First thing to know is if you have any problems at any point let one of the tutors know and we'll come to help out!
 
-The first thing you should do is unzip all of "tutorial_9.zip" into a new folder. You should then open up the "Tutorial_9.Rproj" file, without moving any of the contained files around. This is a way of opening R and R studio in a contained enviroment, so that all of the commands presented in this tutorial will work as intended. 
+We're going to be using R and RStudio today. R is a free software environment for statistical analysis, computing and plotting. It runs on most computer platforms, including Windows and MacOS. It takes a little getting used to, but is by far the easiest way of running multilevel models. If you want to install it on your own computer, follow the instructions [here](https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/) to download both R and RStudio. 
+
+For today, the first thing you should do is unzip all of "tutorial_9.zip" into a new folder. You should then open up the "Tutorial_9.Rproj" file, without moving any of the contained files around. This is a way of opening R and R studio in a contained enviroment, so that all of the commands presented in this tutorial will work as intended. 
 
 
 <details><summary>Walkthrough</summary>
@@ -50,14 +52,14 @@ The first thing you should do is unzip all of "tutorial_9.zip" into a new folder
 Next, try running the following code by copying and pasting (<kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd>) it into your R session's console.
 
 ```{r eval = F}
-# The following code ensures that the packages (like sub-programs that R uses to do things) are installed and attached
-for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats')) {
-    if(!require(package, character.only=T, quietly=T)) {
-        install.packages(package)
-        library(package, character.only=T)
-    }
-}
-
+# The following code ensures that the packages (like sub-programs that R uses to do things) are installed
+install.packages('lme4', 'lmerTest', 'tidyverse', 'readr', 'sjstats')
+# This bit of code tells R to load and attach (i.e., make avaliable) those packages so that the functions they include can be used
+library('lme4')
+library('lmerTest')
+library('tidyverse')
+library('readr')
+library('sjstats')
 ```
 
 

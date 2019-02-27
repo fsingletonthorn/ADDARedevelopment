@@ -19,7 +19,7 @@ library(knitr); library(xtable); library(tidyverse); library(kableExtra)
 
 <br>
 
-This tutorial adapts two chapters from the AMOS User’s Guide (Arbuckle, 2011). The chapters are on the LMS. In this lab, we will use AMOS but not an SPSS dataset. In this case, we will use an excel spreadsheet, illustrating that AMOS can be used entirely independently of SPSS. This dataset includes 428 cases, each a manager of a small manufacturing business, and each with recorded observations on 9 variables. It is worth noting that we could perform this analysis solely on the basis of the variance covariance matrix, although here we have the full dataset. 
+This tutorial adapts two chapters from the Amos User’s Guide (Arbuckle, 2011). The chapters are on the LMS. In this lab, we will use Amos but not an SPSS dataset. In this case, we will use an excel spreadsheet, illustrating that Amos can be used entirely independently of SPSS. This dataset includes 428 cases, each a manager of a small manufacturing business, and each with recorded observations on 9 variables. It is worth noting that we could perform this analysis solely on the basis of the variance covariance matrix, although here we have the full dataset. 
 
 Each manager took two tests of their domain specific knowledge (knowledge1 and knowledge2), two tests that assessed the perceived value of their work (i.e., did they think their job is important, value1 and value2), two tests of their job satisfaction (satisfaction1 and satisfaction2). Finally, two objective measures of their job performance were taken, measures of how productive they were (normalized against their area of business performance1) and the quality of their management experience (performance2). In addition, there is a variable that gives the (standardized) amount of training each person has received.
 
@@ -206,6 +206,8 @@ If any of those numbers are different, you might need to check with one of us!
 
 ## Interpreting the model 
 
+Again, these questions are here to provide some guidance on what sorts of things you should be thinking about when using these techniques. Do not worry if you do not complete them, the main thing is to think and discuss with your peers what the model suggests and how well it fits.
+
 In this section we'll go through two important steps in structural equation modeling: 
 
 A) Checking modeling assumptions
@@ -220,6 +222,17 @@ Violations of multivariate normality can cause our models to be incorrectly reje
 
 4) **Are there any signs of multivariate non-nomality? Specifically look at the multivariate kurtosis value and critial ratio, as well as the p1 and p2 values under the "Observations farthest from the centroid (Mahalanobis distance)" tab.** 
 
+<br>
+
+<details><summary>How to find the assessment of normality tab</summary>
+<p>
+
+![](images/normalityAssessment.gif)
+
+</p>
+</details>
+
+<br>
 
 5) **What statistical approach could we take in Amos if we saw severe violations of multivariate normality?** 
 
@@ -229,6 +242,19 @@ Violations of multivariate normality can cause our models to be incorrectly reje
 
 Navigate to the model fit page in the Amos output window. Taking a quick look at the fit indices and try to answer the following questions (take a look at the slides to help yourself out of course!):
 
+
+<br>
+
+<details><summary>How to find model fit estimates</summary>
+<p>
+
+![](images/modelFit.gif)
+
+</p>
+</details>
+
+<br>
+
 7) **Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit?**
 
 8) **Do small or large SRMR values indicate good fit? How about our SRMR?**
@@ -237,9 +263,17 @@ Navigate to the model fit page in the Amos output window. Taking a quick look at
 
 10) **Do small or large RMSEAs indicate good fit? How about our RMSEA?**
 
+<br>
+<br>
 
 
 ## Question answers
+
+<br>
+
+*Make sure to attempt the questions before checking your answers here! *
+
+<br>
 
 1) **How do these theorical constructs relate to one another? Does this model make sense to you? Are there other ways this model could be constructed?**
 
@@ -254,8 +288,6 @@ Each theoretical construct predicts the score of its two associated measures. Th
 use that instead?**
 
 Because that would implicitly assume that we've measured the theoretical constructs without measurement error. 
-
-Questions
 
 4) **Are there any signs of multivariate non-nomality? Specifically look at the multivariate kurtosis value and critial ratio, as well as the p1 and p2 values under the "Observations farthest from the centroid (Mahalanobis distance)" tab.** 
 
@@ -274,8 +306,7 @@ There are no worrying signs of non-normality. The kurtosis value is low, and its
 
 p1 describes the probability of any value being as far or further from the centroid given multivariate normality. The p1 value for the highest Mahalanobis distance (.001) is not worrying given the size of our dataset. Small values here are perfectly normal. 
 
-p2 gives the probability that the Mahalanobis distance in this rank order exceeds the observed value. That means that the first p2 value listed gives the probability of the highest  Mahalanobis distance being further out that the observed value. The second row's p2 value gives the probability that the second largest Mahalanobis distance is further from the centroid than that which was observed. The third row [etc]. We don't want to see low values here. 
-We have no reason to worry in our dataset, as for example, there was a reasonably high probability that the highest Mahalanobis distance was as far out as the observed distance given multivariate normality. 
+p2 gives the probability that the Mahalanobis distance in this rank order exceeds the observed value. That means that the first p2 value listed gives the probability of the highest  Mahalanobis distance being further out that the observed value. The second row's p2 value gives the probability that the second largest Mahalanobis distance is further from the centroid than that which was observed. The third row [etc]. We don't want to see low values here. We have no reason to worry in our dataset, as for example, there was a reasonably high probability that the highest Mahalanobis distance was as far out as the observed distance given multivariate normality. 
 
 5) **What statistical approach could we take in Amos if we saw severe violations of multivariate normality?** 
 
@@ -299,7 +330,6 @@ The Bollen-Stein bootstrap is described in the Amos documentation:
 "The Bollen-Stine bootstrap process involves the transformation of the data to a data set for which the null hypothesis (that the default model fits the data) is true. [...] Each bootstrap sample is sampled from this transformed data and a chi-square is computed for the fit of that bootstrapped data to the model. These chi-squares [...] are compared internally to the chi-square that was computed for the observed data fit to the model. [...] The proportion of times that the model 'fit worse or failed to fit', i.e. the number of times that the model chi-square for the bootstrapped sample exceeded the chi-square for the observed data, is the Bollen-Stine bootstrap p value."
 
 Using the Bollen-Stein bootstrap to test overall fit, we see that the Bollen-Stein bootstrap agrees with the parametric (distribution assuming) methods used before - the probability of getting the observed variance covariance matrix assuming that our model is correct is very low (when we ran this model, the Bollen-Stein model fit better in every single bootstrap).
-
 
 In order to test whether the standard errors (i.e., the standard deviation of the sampling distribution, or alternatively a measure of the amount of variability we expect in a value due to sampling variability alone) are well approximated by the normal approximation (and therefore the accompanying p values), we can use the ML bootstrap method. Make sure to bump up the number of Bootstrap samples taken too. Here our data is very much multivariate normal - so the results are all basically identical. 
 

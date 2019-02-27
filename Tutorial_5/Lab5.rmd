@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = T,
 
 The data file is **split.sav** which we first met in lab class 4, with 24 variables and 115 cases. The items are listed under "Splitting index".  
 
-Your aim today is to fit a three factor confirmatory analysis model to these data using AMOS. The next tab contains a detailed walkthrough for how to do this.
+Your aim today is to fit a three factor confirmatory analysis model to these data using Amos. The next tab contains a detailed walkthrough for how to do this.
 
 If you get stuck at any step, you should alert (i.e., wave enthusiastically at) one of us after having a look at the walkthrough videos. The walkthrough videos are hidden under the walkthrough arrows if you're on a compatible browser - we've tested them on Chrome and Firefox, and they do not work on Edge or Internet Explorer.
 
@@ -43,7 +43,7 @@ Most of the walkthrough videos will be more helpful than this example.
 
 #### The quick summary of what you will do today is: 
 
-• Open AMOS. 
+• Open Amos. 
 
 • Draw your model. 
 
@@ -61,7 +61,7 @@ Most of the walkthrough videos will be more helpful than this example.
 
 ## How to draw with Amos
 
-### 1. Open AMOS 
+### 1. Open Amos 
 
 Amos provides about eighty drawing and modelling operations. Whatever we want to do, Amos drawing begins with the same screen:
 
@@ -118,12 +118,12 @@ For some unknown reason it can be quite difficult to get Amos to recognize a fac
 
 <br>
 
-## AMOS walkthrough
+## Amos walkthrough
 
 
 ### 2. Draw a single factor with 8 observed items
 
-We're going to take advantage of the fact that there are three factors with 8 items each and the fact that AMOS has a copy function. 
+We're going to take advantage of the fact that there are three factors with 8 items each and the fact that Amos has a copy function. 
 
 First, draw one factor with eight items near the top of the page using the ![](images/factorButton.GIF) button. Click once for the ellipse (unobserved variable). Click 8 times on the ellipse to draw each observed variable (represented by rectangles) and their associated error terms (circles). 
 
@@ -210,7 +210,7 @@ RMSEA = \rmsea
 
 ```
 
-This will, in the above order, make Amos display the $\chi^2$ statistic, the degrees of freedom, p value, CFI and RMSEA for your model when you run it.Most of the keywords are self explanatory [cmin for chi square is a little cryptic]. Another useful index of fit, the comparative fit index or CFI is represented by \\cfi. 
+This will, in the above order, make Amos display the $\chi^2$ statistic, the degrees of freedom, p value, CFI and RMSEA for your model when you run it. Most of the keywords are self explanatory [cmin for chi square is a little cryptic]. Another useful index of fit, the comparative fit index or CFI is represented by \\cfi. 
 
 <details><summary>Walkthrough</summary>
 <p>
@@ -225,7 +225,7 @@ This will, in the above order, make Amos display the $\chi^2$ statistic, the deg
 
 ### 7. Run your model
 
-In order to run the model, you'll first need to **save your file**, and set up some analysis options.
+In order to run the model, you'll first need to **save your file**, and set up some analysis options. Make sure to save your file in a writable directory (e.g., in "Documents/Lab5", not in the SPSS or Amos program directory). 
 
 Click the ![](images/analysisOptionsButton.GIF) button to access the options. 
 
@@ -234,7 +234,7 @@ Click the ![](images/analysisOptionsButton.GIF) button to access the options.
 
 If you had missing data you would have to click on the ‘Estimate means and intercepts’ button (or use more sophisticated methods of data imputation), but today you can leave this section alone.
 
-Options for printing and so forth are found on the ‘Output’ tab. Normally you would choose standardized estimates (as you should today). In Amos by default, the factor loadings are unstandardised regression weights and the lables on the curved double headed arrows covariances. Standardized estimates restores the more familiar look of standardised regression weights and correlations.
+Options for printing and so forth are found on the ‘Output’ tab. Normally you would choose standardized estimates (as you should today). In Amos by default, the factor loadings are unstandardised regression weights and the labels on the curved double headed arrows covariances. Standardized estimates restores the more familiar look of standardised regression weights and correlations.
 
 • Squared multiple correlations give us our communality estimates
 
@@ -292,30 +292,53 @@ If any of those numbers are different, you might need to check with one of us!
 
 ## Interpreting the output
 
-To take a look at the full output, you can either examine the factor loadings 
+<br>
 
+Before attempting these questions, take a look through the model output and try to understand what's going on! Discuss with your peers and ask the tutors any questions you might have. These questions are only here to give you some guidance in what sorts of questions it will be worth asking, and to give you some guidance on what are the first things to inspect after running a model. 
 
-#### Question 1
+<br>
+
+#### Questions
 
 1) Which variables have the most variance explained by each factor?
 
-#### Question 2
+<br>
 
-2) Take a look at the assessment of normality output. 
+**Take a look at the assessment of normality output.**
 
-Are there any worrying signs of multivariate non-normality?
+<details><summary>How to find the assessment of normality tab</summary>
+<p>
 
-#### Questions 3 - 6
+![](images/normalityAssessment.gif)
 
-Navigate to the model fit page in the Amos output window. Taking a quick look at the fit indices that we discussed in class:
+</p>
+</details>
+
+<br>
+
+2) Are there any worrying signs of multivariate non-normality?
+
+<br> 
+
+**Navigate to the model fit page in the Amos output window. Take a look at the fit indices that we discussed in class.**
+
+<details><summary>How to find model fit estimates</summary>
+<p>
+
+![](images/modelFit.gif)
+
+</p>
+</details>
+
+<br>
 
 3) Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit? 
 
 4) Do small or large RMSEAs indicate good fit? How about our RMSEA?
 
-#### Questions 7 - 9
+<br>
 
-Finally, add correlations among the factors and rerun the model. Make sure to keep a record of the old output (e.g., take a screen shot). 
+**Finally, add correlations among the factors and rerun the model. Make sure to keep a record of the old output (e.g., take a screen shot).**
 
 5) Does model fit improve? 
 
@@ -363,6 +386,8 @@ Gould, J.R., Prentice, N.M., and Ainslie, R.C. (1996) The splitting index: Const
 
 ## Question answers
 
+Please attempt the questions on your own before checking your answers here. 
+
 **1) Which variables have the most variance exaplined by each factor?**
 
 To answer this question you can look at the standardized regression weights or the squared multiple correlations either on your diagram or in the output window. 
@@ -385,9 +410,11 @@ Looking at the "assessment of normality" tab in the output window, there are sig
 
 <br>
 
-
 <br>
 
+**3) Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit?**
+
+<br>
 
 <details><summary>How to find model fit estimates</summary>
 <p>
@@ -399,9 +426,6 @@ Looking at the "assessment of normality" tab in the output window, there are sig
 
 <br>
 
-<br>
-
-**3) Do small or large chi square statistics indicate good fit? Does our chi square value indicate good fit?**
 
 Smaller chi square values indicate less discrepancy between the model variance covariance matrix and the data's. In this case, we have a very large chi square value relative to our degrees of freedom, which indicates we have poor fit.
 
@@ -425,6 +449,4 @@ This one you'll have to think about!
 Not really! Only minor changes. 
 
 <br>
-
-
 

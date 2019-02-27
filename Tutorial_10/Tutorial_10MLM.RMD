@@ -38,14 +38,14 @@ As per last week, download and unzip today's data into a new folder and open the
 Next, try running the following code by copying and pasting (<kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd>) it into your R session's console.
 
 ```{r eval = F}
-# The following code functions ensure that the packages (like sub-programs that R uses to do things) are installed and attached
-for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats')) {
-    if(!require(package, character.only=T, quietly=T)) {
-        install.packages(package)
-        library(package, character.only=T)
-    }
-}
-
+# The following code functions ensure that the packages (like sub-programs that R uses to do things) are installed
+install.packages('lme4', 'lmerTest', 'tidyverse', 'readr', 'sjstats')
+# This bit of code tells R to load and attach (i.e., make avaliable) those packages so that the functions they include can be used
+library('lme4')
+library('lmerTest')
+library('tidyverse')
+library('readr')
+library('sjstats')
 ```
 
 #### The data
