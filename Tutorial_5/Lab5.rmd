@@ -23,6 +23,10 @@ The data file is **split.sav** which we first met in lab class 4, with 24 variab
 
 Your aim today is to fit a three factor confirmatory analysis model to these data using Amos. The next tab contains a detailed walkthrough for how to do this.
 
+*Please now check which browser you are using - if there are no tabs at the top of this document, change your browser to Firefox or Chrome. If you can see the gif below without having to press an arrow, your browser is not compatible with this document, please change browser to Firefox or Chrome.*
+
+This document tells you exactly how to run today's model. Please go through each tab in turn. 
+
 If you get stuck at any step, you should alert (i.e., wave enthusiastically at) one of us after having a look at the walkthrough videos. The walkthrough videos are hidden under the walkthrough arrows if you're on a compatible browser - we've tested them on Chrome and Firefox, and they do not work on Edge or Internet Explorer.
 
 <br>
@@ -125,7 +129,7 @@ For some unknown reason it can be quite difficult to get Amos to recognize a fac
 
 We're going to take advantage of the fact that there are three factors with 8 items each and the fact that Amos has a copy function. 
 
-First, draw one factor with eight items near the top of the page using the ![](images/factorButton.GIF) button. Click once for the ellipse (unobserved variable). Click 8 times on the ellipse to draw each observed variable (represented by rectangles) and their associated error terms (circles). 
+First, draw one factor with eight items near the top of the page using the ![](images/factorButton.GIF) button. Make sure it is the right size by not just clicking, but by clicking and dragging. Make the first one pretty because it will dictate the size of the rest of the objects you draw today. Click once for the ellipse (unobserved variable). Click 8 times on the ellipse to draw each observed variable (represented by rectangles) and their associated error terms (circles). 
 
 Note that the upside-down alien button (![](images/factorButton.GIF)) automatically adds an unstandardized loading of 1 between each error term and the observed variable, and fixes the loading of the factor on the first observed variable to one.  
 
@@ -161,7 +165,9 @@ The next step is to copy your factor structure twice. Copy the factor by selecti
 
 Next, you need to define each observed variable (i.e., each rectangle). To do so, you can give each a name that corresponds to a variable in you dataset by double clicking on each rectangle and never making a spelling error, or by clicking and dragging from a list. In either case, you first need to make sure that you tell Amos where the active dataset is.
 
-To do so, click the "Select data file" button (the spreadsheet button: ![](images/selectData.GIF)), click *File Name*, navigate to your data file (**split.sav**), and open it.
+To do so, first unselect all objects using the fist button ( ![](images/selectNoneButton.GIF)). Notice that the blue highlighting will go away. If you do not complete this step you will name all selected objects not just one at a time.
+
+Then click the "Select data file" button (the spreadsheet button: ![](images/selectData.GIF)), click *File Name*, navigate to your data file (**split.sav**), and open it.
 
 From there, you can click on the list variables in data set button (the stacked pizza boxes button: ![](images/VariablesButton.GIF)), and click and drag each variable over to the appropriate rectangle. Make sure you put the right variables with each factor. If you're unsure which variables should go with which factor, take a look at the Splitting index tab.
 
@@ -221,6 +227,8 @@ This will, in the above order, make Amos display the $\chi^2$ statistic, the deg
 </details>
 
 <br>
+
+If you want to move this part around and not just leave it in the centre of your picture you need to make the text left aligned.
 
 
 ### 7. Run your model
@@ -438,7 +446,7 @@ RMSEA is another "badness of fit" statistic, with larger values indicating more 
 
 **5) Does model fit improve?** 
 
-Yes, moderately, with the SRMR going to .10, RMSEA going down slightly (still .09 after rounding), and the CFI going down to .71, and the Chi Square statistic going to 476.55.
+Yes, moderately, with the SRMR going to .10, RMSEA going down slightly (still .09 after rounding), and the Chi Square statistic going to 476.55.
 
 **6) Does it make theoretical sense to correlate these factors?**
 

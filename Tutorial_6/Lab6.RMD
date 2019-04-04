@@ -187,7 +187,8 @@ Finally, you might want to get standardized output instead of unstandardized out
 <details><summary>Walkthrough</summary>
 <p>
 
-![](images/amosStep6.GIF)
+
+![](images/modelFit.gif)
 
 </p>
 </details>
@@ -271,7 +272,7 @@ Navigate to the model fit page in the Amos output window. Taking a quick look at
 
 <br>
 
-*Make sure to attempt the questions before checking your answers here! *
+*Make sure to attempt the questions before checking your answers here!*
 
 <br>
 
@@ -282,12 +283,12 @@ This model says that knowledge, perceived value of people's jobs, and their job 
 
 2) **Can you describe the measurement model in words?**
 
-Each theoretical construct predicts the score of its two associated measures. This implies that each person's true, unobserved construct (e.g., their true level of job satisfaction), causes their score on a given measure (e.g., *satisfaction1*). However, this measurement model also acknowledges that there are additional sources of error that explain some of the variability in the measured scores (e.g., *e6*). 
+Each theoretical construct predicts the score of its two associated measures. This implies that each person's true, unobserved construct score (e.g., their true level of job satisfaction), predicts their score on a given measure (e.g., *satisfaction1*). However, this measurement model also acknowledges that there are additional sources of error that explain some of the variability in the measured scores (e.g., *e6*). 
 
 3) **Why don't we just create a sum score of each pair of measures and 
 use that instead?**
 
-Because that would implicitly assume that we've measured the theoretical constructs without measurement error. 
+Because that would implicitly assume that we've measured the theoretical constructs without measurement error, and make the assumption of tau equivalance (i.e., that all measures of the same construct are on the same scale).
 
 4) **Are there any signs of multivariate non-nomality? Specifically look at the multivariate kurtosis value and critial ratio, as well as the p1 and p2 values under the "Observations farthest from the centroid (Mahalanobis distance)" tab.** 
 
@@ -302,11 +303,11 @@ Because that would implicitly assume that we've measured the theoretical constru
 
 <br>
 
-There are no worrying signs of non-normality. The kurtosis value is low, and its critical ratio (the Kurtosis value divided by its standard error) is far from worrying (at .113). Looking at the tab below ("Observations farthest from the centroid (Mahalanobis distance)"), there is no worrying sign of abnormality. 
+There are no worrying signs of non-normality. The kurtosis value is low, and its critical ratio (the Kurtosis value divided by its standard error) is far from worrying (at .113). Looking at the tab below ("Observations farthest from the centroid (Mahalanobis distance)"), there is no worrying sign of abnormality.
 
-p1 describes the probability of any value being as far or further from the centroid given multivariate normality. The p1 value for the highest Mahalanobis distance (.001) is not worrying given the size of our dataset. Small values here are perfectly normal. 
+p1 describes the probability of any randomly selected value being further from the centroid given multivariate normality. The p1 value for the highest Mahalanobis distance (.001) is not worrying given the size of our dataset. Small values here are perfectly normal.
 
-p2 gives the probability that the Mahalanobis distance in this rank order exceeds the observed value. That means that the first p2 value listed gives the probability of the highest  Mahalanobis distance being further out that the observed value. The second row's p2 value gives the probability that the second largest Mahalanobis distance is further from the centroid than that which was observed. The third row [etc]. We don't want to see low values here. We have no reason to worry in our dataset, as for example, there was a reasonably high probability that the highest Mahalanobis distance was as far out as the observed distance given multivariate normality. 
+p2 gives the probability that the Mahalanobis distance in this rank order  exceeds the observed value. That means that the first p2 value listed gives the probability of the highest  Mahalanobis distance being further out than the observed value. The second row's p2 value gives the probability that the second largest Mahalanobis distance is further from the centroid than that which was observed. The third row [etc]. We don't want to see low values here. We have no reason to worry in our dataset, as for example, there was a reasonably high probability that the highest Mahalanobis distance was as far out as the observed distance given multivariate normality.
 
 5) **What statistical approach could we take in Amos if we saw severe violations of multivariate normality?** 
 
