@@ -180,7 +180,7 @@ We want to merge "siop" and "siop_group" by the variable that exists in both dat
 <details><summary>Answer</summary>
 <p>
 
-Copy and paste the following into R to merge the two files matching by *grpid*, the name of the group ID column in both "siop" and "siop_group".
+Copy and paste the following into R to merge the two files matching by *grpid*, the name of the group ID column in both "siop" and "siop_group", and save the results as "siop_merged".
 
 
 ```{r include=T}
@@ -204,6 +204,8 @@ siop_merged <- merge(siop, siop_group, by = "grpid")
 
 
 ## Part 2 - Null model for job satisfaction
+
+<br>
 
 In these exercises, we will predict job satisfaction as the dependent variable.
 
@@ -433,6 +435,10 @@ Hint: remember how to calculate ICCs?
 
 </p>
 </details>
+
+<br>
+
+If you've still got time, try adding more predictors (e.g., "*new_model <- lmer("jobsat ~ 1 + posaff + neglead + (1 | grpid)", data = siop_merged)*") to the model! 
 
 <br>
 

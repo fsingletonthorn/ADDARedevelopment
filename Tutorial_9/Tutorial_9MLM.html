@@ -476,7 +476,7 @@ You can pass multiple augments to functions by separating them with commas, for 
 <details>
 <summary>Answer</summary>
 <p>
-<p>Copy and paste the following into R to merge the two files matching by <em>grpid</em>, the name of the group ID column in both “siop” and “siop_group”.</p>
+<p>Copy and paste the following into R to merge the two files matching by <em>grpid</em>, the name of the group ID column in both “siop” and “siop_group”, and save the results as “siop_merged”.</p>
 <pre class="r"><code>siop_merged &lt;- merge(siop, siop_group, by = &quot;grpid&quot;)</code></pre>
 </p>
 </details>
@@ -574,6 +574,7 @@ You can pass multiple augments to functions by separating them with commas, for 
 </div>
 <div id="part-2---null-model-for-job-satisfaction" class="section level2">
 <h2>Part 2 - Null model for job satisfaction</h2>
+<p><br></p>
 <p>In these exercises, we will predict job satisfaction as the dependent variable.</p>
 <p>Let’s take a look at our data now - remember it’s stored as <em>siop_merged</em>!</p>
 <pre class="r"><code>View(siop_merged)</code></pre>
@@ -837,6 +838,8 @@ Is there still a lot of variance to explain at the group level?
 <p>Hint: remember how to calculate ICCs?</p>
 </p>
 </details>
+<p><br></p>
+<p>If you’ve still got time, try adding more predictors (e.g., “<em>new_model &lt;- lmer(&quot;jobsat ~ 1 + posaff + neglead + (1 | grpid)&quot;, data = siop_merged)</em>”) to the model!</p>
 <p><br></p>
 </div>
 </div>
