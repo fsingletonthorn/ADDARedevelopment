@@ -31,11 +31,11 @@ for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats',
 
 #### Open the project
 
-First thing to know is if you have any problems at any point let one of the tutors know and we'll come to help out!
+First thing to know is if you have any problems at any point let one of the tutors know and we'll come to help out! *Please also make sure that you have opened this document (lab9.html) in Google Chrome. If you do not have tabs up the top of this file, you should reopen this file in Google Chrome.*
 
 We're going to be using R and RStudio today. R is a free software environment for statistical analysis, computing and plotting. It runs on most computer platforms, including Windows and MacOS. It takes a little getting used to, but is by far the easiest way of running multilevel models. If you want to install it on your own computer, follow the instructions [here](https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/) to download both R and RStudio. 
 
-For today, the first thing you should do is unzip all of "tutorial_9.zip" into a new folder. You should then open up the "Tutorial_9.Rproj" file, without moving any of the contained files around. This is a way of opening R and R studio in a contained enviroment, so that all of the commands presented in this tutorial will work as intended. 
+For today, the first thing you should do is **unzip all of "tutorial_9.zip" into a new folder**. You should then open up the "*Tutorial_9.Rproj*" file, **without moving any of the contained files around**. This is a way of opening R and R studio in a contained environment, so that all of the commands presented in this tutorial will work as intended.
 
 
 <details><summary>Walkthrough</summary>
@@ -47,9 +47,9 @@ For today, the first thing you should do is unzip all of "tutorial_9.zip" into a
 \n
 \n
 
-### Setting up R to run our analyses
+### Setting up R Studio to run our analyses
 
-Next, try running the following code by copying and pasting (<kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd>) it into your R session's console.
+Next, try running the following code by copying and pasting (<kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd>) it into your R session's console. Take a look at the walkthrough below to see where the console will be in RStudio. 
 
 ```{r eval = F}
 # The following code ensures that the packages (like sub-programs that R uses to do things) are installed
@@ -69,16 +69,13 @@ library('sjstats')
 </p>
 </details>
 
-
 \n
 \n
 
+The code chunk above  downloads and installs all of the things we're going to use today (i.e., all of the packages and functions we use). Don't worry if it looks like gibberish. You do not have to learn to code to follow along today, we're really just giving you a bit of a sense of how a program like R works! If you want to learn R for funsies, *Learning statistics with R: A tutorial for psychology students and other beginners* by Danielle Navarro  (http://compcogscisydney.org/learning-statistics-with-r) is pretty great, but you do **NOT** need to learn to code or script in R to ace this course.
 
-The code chunk above loads and, if necessary, downloads, all of the packages and functions we're going to use today. Don't worry if it looks like gibberish. You do not have to learn to code to follow along today, we're really just giving you a bit of a sense of how a program like R works! If you want to learn R for funsies, *Learning statistics with R: A tutorial for psychology students and other beginners* by Danielle Navarro  (http://compcogscisydney.org/learning-statistics-with-r) is pretty great, but you do **NOT** need to learn to code or script in R to ace this course.
 
- 
 **Note** The "#" symbol lets you make comments in your code, anything on a line after a "#" symbol will not be evaluated and is just there to explain what the code does.
-
 
 
 ## Part 1 - Data importing and tidying
@@ -102,7 +99,7 @@ In addition to the group ID file, the file *siop-group.csv* contains one standar
 
 ### Importing the raw data files
 
-We can read in the data files using the function "read_csv". Copy paste the following code into your R console to read our data. 
+We can read in the data files using the function "read_csv", this opens the data file in RStudio. Copy paste the following code into your R console to read our data. 
 
 ```{r message=FALSE, warning=FALSE}
 siop <- read_csv("siop.csv")
@@ -124,7 +121,7 @@ In R, a set of characters followed by brackets is a function. For example "round
 
 The contents of the brackets tell R what to do. So *round(1.123)* will give you "1", as R is rounding 1.123 to the nearest whole number.  *<-* is how we tell R to assign a variable. So, writing *abc <- 1* is like saying to R, store a 1 in the variable "abc". 
 
-You can pass multiple aguments to functions by separating them with commas, for example *round(1.123, 2)* rounds 1.123 to two decimal places, i.e., to 1.12.
+You can pass multiple augments to functions by separating them with commas, for example *round(1.123, 2)* rounds 1.123 to two decimal places, i.e., to 1.12.
 <br>
 <br>
 </p>
@@ -166,16 +163,16 @@ siop_merged <- merge(siop, siop_group, by = "Key_Column")
 
 We want to merge "siop" and "siop_group" by the variable that exists in both datasets and designates the group. Change *"Key_Column"* in the code chunk above to the variable that exists in both data files that identifies the **Group ID**.
 
-#### Merge siop and siop_group by the group variable, so that each individual row of data has a measure of the group level physical enviroment
+#### Merge siop and siop_group by the group variable, so that each individual row of data has a measure of the group level physical environment
 
 <br>
 
-**NOTE:** you will need to change "Key_Column" to the column name that exists in both "siop" and "siop_group"
+**NOTE:** you will need to change "Key_Column" to the column name that exists in both "siop" and "siop_group", and don't forget to include the question marks around the variable name! 
 
 <details><summary>Hint</summary>  
 <p>
 
-*View(siop)* and *View(siop_group)* to see which columns names they have in common.
+*View(siop)* and *View(siop_group)* to see which column names they have in common - this is the variable that you want to merge by.
 
 </p>
 </details>
@@ -195,7 +192,7 @@ siop_merged <- merge(siop, siop_group, by = "grpid")
 
 \n
 
-#### **Make sure you've got siop_merged working before moving on, it should start like this:**
+#### **Make sure you've got siop_merged working before moving on (e.g., *View(siop_merged)*), it should start like this:**
 
 \n
 
@@ -227,7 +224,7 @@ This ‘null’ model may be written:
 
 $JobSat_{ij} = \gamma_0 + u_{0j} + \epsilon_{ij}$
 
-An overall intercept ($\gamma_0$), a random effect  for groups($u_{0j}$ i.e., error term), and an error term for each person in each group ($\epsilon_{ij}$). 
+An overall intercept ($\gamma_0$), a random effect  for groups($u_{0j}$), and an error term for each person in each group ($\epsilon_{ij}$). 
 
 Remember that the subscripts are indexes for person (i) and group (j). So all the above is saying is that person i in group j has a job satisfaction of $JobSat_{ij}$ equal to a constant (the intercept) $\gamma_0$ plus a random effect for group $u_{0j}$ and a residual for person $\epsilon_{ij}$ - i.e., an error term.
 
@@ -248,7 +245,7 @@ item <-knitr::kable(data_frame("Terms"=c("jobsat ~","1 +", "(1 | grpid)"), "Mean
 
 `r item`
 
-*Note that the error term is assumed*
+*Note that the error term is assumed by R and we don't have to explicitly include it*
 
 ##### We can estimate this model using the *lmer* (Linear Mixed-Effects Models) function 
 
@@ -270,7 +267,13 @@ summary(null_model)
 </p>
 </details>
 
-This model says "how well can we model our data given that we're predicting the same score for every single person in a group, and saying that the group means can vary around some overall intercept". To visulize this see the plot below, which shows job satisfaction by group ID, with blue dots for the best linear unbiased predictor of each group's true mean. 
+This model say that each person's score is the product of their group membership plus random noise (i.e., the residuals). 
+
+It assumes that the residuals are normally distrubited around a mean of zero, and we actually estimate the variance of the residuals, here `r round(as.data.frame(VarCorr(null_model))[2,4],3)`).
+
+It assumes that the group means are normally distributed around the overall intercept (here estimated as `r round(fixef(null_model)[[1]], 2)`), and again the thing which we actually estimate is the variance of the distribution of group means (i.e., the variance of the group level intercepts), here `r round(as.data.frame(VarCorr(null_model))[1,4],3)`.
+
+To visualize this see the plot below, which shows job satisfaction by group ID, with blue dots for the best linear unbiased prediction of each group's true mean (i.e., the group intercepts). 
 
 
 <details><summary> Figure 1 </summary>
@@ -290,8 +293,10 @@ Figure 1. job satisfaction by group ID, blue points show the best linear unbiase
 </p>
 </details>
 
+
+
 ##### **Question 1**
-How large is the intercept of the model? Looking at the dependent variable  (its mean, range and standard deviation) why might the value be so low? Does it look like this variable has been transformed and how? 
+How large is the intercept of the model? Looking at the dependent variable (its mean, range and standard deviation), does it look like this variable has been standardised or re-centered? Why would that impact the intercept of our model?
 
 Hint: 
 Try the following code:
@@ -305,7 +310,8 @@ sd(siop_merged$jobsat)
 <br>
 
 ##### **Question 2**
-How big is the group level variance (the intercept variance)? Calculate the interclass correlation (you should do this by hand from the output using the slides from the lecture!)
+
+How big is the group level variance (the *groupid* intercept variance) as a proportion of total variance? Calculate the interclass correlation (you can do this by hand by taking $variance_{groupid} / (variance_{groupid} + variance_{residual})$ - and you can use R's console like a calculator if you want to!)
 
 <br>
 
@@ -347,7 +353,7 @@ This means each person's job satisfaction is equal to the overall intercept ( $\
 a regression term times their positive affect $\gamma_{10} (PosAff_{ij})$,
 a random effect for their group ($u_{0j}$), plus an error term ($\epsilon_{ij}$) (i.e., the residual, as the MLM will not perfectly predict their score).
 
-To write out this model in R all we need to do is add "+ posaff" (the variable name for positive affect) to the earlier null model. By tradition we'll put it after the intercept and before the random slopes.
+To write out this model in R all we need to do is add "+ posaff" (the variable name for positive affect) to the earlier null model. By tradition we'll put it after the intercept and before the random slopes. Run the following code to save the model output as PA_model.
 
 ```{r}
 PA_model <- lmer("jobsat ~ 1 + posaff + (1 | grpid)", data = siop_merged) 
@@ -371,7 +377,6 @@ Remember *summary(PA_model)* is useful in getting a summary of your output out!
 
 ```{r}
 summary(PA_model)
-
 ```
 
 Plotting this might help us understand what we've got here. We're saying that the relationship between positive affect and job satisfaction is the same in every group, but that the baseline - the intercept - can vary by group. To plot this, we can plot job satisfaction by positive affect and draw a regression line for each group. 
@@ -431,10 +436,54 @@ Hint: remember how to calculate ICCs?
 
 <br>
 
-## Question answers
+
+
+## Model output results
+
+<br>
+
+#### Model output
+
+<br>
+
+##### Null model / Random effects ANOVA
+
+<br>
+
+```{r include=T, results = T}
+
+null_model <- lmer("jobsat ~ 1 + (1 | grpid)", data = siop_merged) 
+
+summary(null_model)
+
+```
+
+<br>
+
+##### Random intercept model
+
+<br>
+
+```{r include=T, results = T}
+
+PA_model <- lmer("jobsat ~ 1 + posaff + (1 | grpid)", data = siop_merged)
+
+summary(PA_model)
+
+```
+
+<br>
+
+<br>
+
+## Question answers 
+
+<br>
+
+<br>
 
 ##### **Question 1**
-How large is the intercept? Looking at the dependent variable  (their mean, range and standard deviation) why might the value be so low? Should we worry about this?
+How large is the intercept of the model? Looking at the dependent variable (its mean, range and standard deviation), does it look like this variable has been standardised? Why would that impact the intercept of our model?
 
 Hint: 
 Try the following code:
@@ -445,11 +494,11 @@ range(siop_merged$jobsat)
 sd(siop_merged$jobsat)
 ```
 
-
-Looking at the model output, it looks like job satisfaction has been centered (i.e., altered to have a mean of ~ 0), but not obviously standardized (i.e., it doesn't have an SD of 1 for example). This is almost certainly fine.
+Looking at the model output, it looks like job satisfaction has been mean centered (i.e., altered to have a mean of ~ 0), but not obviously standardized (i.e., it doesn't have an SD of 1 for example). This is almost certainly fine.
 
 ##### **Question 2**
-How big is the group level variance (the intercept variance)? Calculate the interclass correlation (you should do this by hand from the output using the slides from the lecture!)
+
+How big is the group level variance (the *groupid* intercept variance) as a proportion of total variance? Calculate the interclass correlation (you can do this by hand by taking $variance_{groupid} / (variance_{groupid} + variance_{residual})$ - and you can use R's console like a calculator if you want to!)
 
 Answer: 
 
@@ -458,7 +507,7 @@ Answer:
 0.6835 / (5.4741 + 0.6835)
 
 # Or you can use icc() from sjstats
-sjstats::icc(null_model)
+icc(null_model)
 
 ```
 
@@ -515,12 +564,12 @@ icc(PA_model)
 With an ICC of .1096, we're still talking about a fair bit of variance accounted for by the clustering variable group. We've barely reduced it from before in fact. 
 
 
-## LME4 sytax / Design formula explainer 
+## LME4 syntax / Design formula explainer 
 
-The way that we input out models into LME4 and other model fitting functions in R is a notation form called a "desgin formula". This takes the expression for the predicted values, but doesn't include the parameter values, leaving instead just the predictor variable names seperated by "+" signs, or for multilvel models notation indicating how variables are nested together.
+The way that we input out models into LME4 and other model fitting functions in R is a notation form called a "design formula". This takes the expression for the predicted values, but doesn't include the parameter values, leaving instead just the predictor variable names separated by "+" signs, or for multilevel models notation indicating how variables are nested together.
 
-A good example is simple linear regression where we are predciting y with x. Normally we would think of this as something like $\hat{y_i} = a + \beta x_i$, i.e., the predicted value of y for person i is equal to some intercept a, plus $\beta$ times their score on $x$. 
-In desing formual terms this becomes: 
+A good example is simple linear regression where we are predicting y with x. Normally we would think of this as something like $\hat{y_i} = a + \beta x_i$, i.e., the predicted value of y for person i is equal to some intercept a, plus $\beta$ times their score on $x$. 
+In design formula terms this becomes: 
 
 ```{}
 y ~ 1 + x
@@ -530,7 +579,7 @@ Where the one stands in for the intercept, and we don't have to include the para
 
 ##### Categorical variables 
 
-R will attempt to detect when you have provided categorical variables, but does not have 100% accuracy. If you supply a character vector (i.e., data where each group is identified by a word or letter not a number) it will treat these like categories. If you provide a coded variable (e.g., categories identified by "1", "2", "3") you will have to coerce it to be a factor to make R assume that it is categorical, e.g.;
+R will attempt to detect when you have provided categorical variables, but does not have 100% accuracy. If you supply a character vector (i.e., data where each group is identified by a word or letter not a number) it will treat these like categories. If you provide a numeric variable (e.g., where categories identified by "1", "2", "3") you will have to coerce it to be a factor to make R assume that it is categorical, e.g.;
 
 ```{}
 y ~ 1 + as.factor(x)
@@ -557,6 +606,6 @@ The 'group' part specifies which variables are group level factors. I.e., they s
 Extra additional information (feel free to ignore):
 Multiple grouping factors each with multiple group-level effects are possible. Usually, group contains only a single variable name pointing to a factor, but you may also use g1:g2 or g1/g2, if both g1 and g2 are suitable grouping factors. The : operator creates a new grouping factor that consists of the combined levels of g1 and g2 (you could think of this as pasting the levels of both factors together).The / operator indicates nested grouping structures and expands one grouping factor into two or more when using multiple / within one term. If, for instance, you write (1 | g1/g2),  it will be expanded to (1 | g1) + (1 | g1:g2). Instead of | you may use || in grouping terms to prevent group-level correlations from being modeled.
 
-Don't worry at all if you don't get this at the moment, it's confusing but will become clearer over time. 
+Don't worry at all if you don't get this at the moment, it's confusing but will become clearer over time.
 
 This explanation is adapted from: Advanced Bayesian Multilevel Modeling with the R Package brms by Paul-Christian Bürkner 
