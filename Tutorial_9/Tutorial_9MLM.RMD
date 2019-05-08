@@ -31,9 +31,9 @@ for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats',
 
 #### Open the project
 
-First thing to know is if you have any problems at any point let one of the tutors know and we'll come to help out! *Please also make sure that you have opened this document (lab9.html) in Google Chrome. If you do not have tabs up the top of this file, you should reopen this file in Google Chrome.*
+First thing to know is if you have any problems at any point let one of the tutors know and we'll come to help out! *Please make sure that you have opened this document (lab9.html) in Google Chrome. If you do not have tabs up the top of this file, you should reopen it in Google Chrome.*
 
-We're going to be using R and RStudio today. R is a free software environment for statistical analysis, computing and plotting. It runs on most computer platforms, including Windows and MacOS. It takes a little getting used to, but is by far the easiest way of running multilevel models. If you want to install it on your own computer, follow the instructions [here](https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/) to download both R and RStudio. 
+We're going to be using R and RStudio today. R is a free software environment for statistical analysis, computing and plotting. It runs on most operating systems, including Windows and MacOS. It takes a little getting used to, but is by far the easiest way of running multilevel models. If you want to install it on your own computer, follow the instructions [here](https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/) to download both R and RStudio.
 
 For today, the first thing you should do is **unzip all of "tutorial_9.zip" into a new folder**. You should then open up the "*Tutorial_9.Rproj*" file, **without moving any of the contained files around**. This is a way of opening R and R studio in a contained environment, so that all of the commands presented in this tutorial will work as intended.
 
@@ -128,18 +128,18 @@ You can pass multiple augments to functions by separating them with commas, for 
 </details>
 <br>
 
-*siop <- read_csv("siop.csv")* tells R to save the output of the function *read_csv("siop.csv")* as *siop* in the workspace (i.e., R's short term memory). 
+*siop <- read_csv("siop.csv")* tells R to save the output of the function *read_csv("siop.csv")* as *siop* in the workspace (i.e., R's short term memory). You can look up the top right of R studio under "enviroment" to see which objects are currently in the workspace. 
 
 
 We can **view** the files in Rstudio using the function *View()* (note the capital "V").
 
-Notice we've got one file that is at the individual level (copy and paste the following code into your R session to see the data)
+Notice we've got one file that is at the individual level (copy and paste the following code into your R session to see the data - it will open as a new "tab" in RStudio)...
 
 ```{r display_individual, eval=F}
 View(siop)
 ```
 
-And one which is at the group level.
+... and one which is at the group level.
 
 ```{r display_group, eval=F}
 View(siop_group)
@@ -269,9 +269,11 @@ summary(null_model)
 </p>
 </details>
 
-This model say that each person's score is the product of their group membership plus random noise (i.e., the residuals). 
+<br>
 
-It assumes that the residuals are normally distrubited around a mean of zero, and we actually estimate the variance of the residuals, here `r round(as.data.frame(VarCorr(null_model))[2,4],3)`).
+This model says that each person's score is the product of their group membership plus random noise (i.e., the residuals). 
+
+It assumes that the residuals are normally distrubited around a mean of zero, and we estimate the variance of the residuals, here `r round(as.data.frame(VarCorr(null_model))[2,4],3)`).
 
 It assumes that the group means are normally distributed around the overall intercept (here estimated as `r round(fixef(null_model)[[1]], 2)`), and again the thing which we actually estimate is the variance of the distribution of group means (i.e., the variance of the group level intercepts), here `r round(as.data.frame(VarCorr(null_model))[1,4],3)`.
 
@@ -295,7 +297,7 @@ Figure 1. job satisfaction by group ID, blue points show the best linear unbiase
 </p>
 </details>
 
-
+<br>
 
 ##### **Question 1**
 How large is the intercept of the model? Looking at the dependent variable (its mean, range and standard deviation), does it look like this variable has been standardised or re-centered? Why would that impact the intercept of our model?
@@ -419,13 +421,19 @@ hint: Take a look at the *Fixed effects*
 
 <br>
 
+
 ##### **Question 5**
+
 
 Is positive affect a strong predictor of job satisfaction? 
 
 hint: *try std_beta(PA_model)* to get standardised estimates
 
+<br>
+
+
 ##### **Question 6**
+
 
 Is there still a lot of variance to explain at the group level? 
 <details><summary>Hint</summary>
@@ -438,7 +446,7 @@ Hint: remember how to calculate ICCs?
 
 <br>
 
-If you've still got time, try adding more predictors (e.g., "*new_model <- lmer("jobsat ~ 1 + posaff + neglead + (1 | grpid)", data = siop_merged)*") to the model! 
+**If you've still got time, try adding more predictors (e.g., "*new_model <- lmer("jobsat ~ 1 + posaff + neglead + (1 | grpid)", data = siop_merged)*") to the model!**
 
 <br>
 
@@ -486,15 +494,14 @@ summary(PA_model)
 
 <br>
 
-<br>
-
 ##### **Question 1**
 How large is the intercept of the model? Looking at the dependent variable (its mean, range and standard deviation), does it look like this variable has been standardised? Why would that impact the intercept of our model?
 
-Hint: 
+Hint:
+
 Try the following code:
 
-```{r eval = T}
+```{r eval = T, results=T}
 mean(siop_merged$jobsat)
 range(siop_merged$jobsat)
 sd(siop_merged$jobsat)
@@ -502,13 +509,15 @@ sd(siop_merged$jobsat)
 
 Looking at the model output, it looks like job satisfaction has been mean centered (i.e., altered to have a mean of ~ 0), but not obviously standardized (i.e., it doesn't have an SD of 1 for example). This is almost certainly fine.
 
+<br> 
+
 ##### **Question 2**
 
 How big is the group level variance (the *groupid* intercept variance) as a proportion of total variance? Calculate the interclass correlation (you can do this by hand by taking $variance_{groupid} / (variance_{groupid} + variance_{residual})$ - and you can use R's console like a calculator if you want to!)
 
 Answer: 
 
-```{r echo = T, include=T}
+```{r echo = T, include=T, results = T}
 # You can calculate it by hand  
 0.6835 / (5.4741 + 0.6835)
 
@@ -517,12 +526,14 @@ icc(null_model)
 
 ```
 
+<br>
 
 ##### **Question 3**
 Interpret the ICC - how big is the ICC? What does this ICC suggest?
 
 Answer: The ICC is not huge, but it is non-negligible, suggesting that a MLM is reasonable. A fair amount of the variance of our model appears to be accounted for by group, and in so far as we want to accurately model the world, it seems like a multilevel model might be a good way of doing so! 
 
+<br>
 
 ##### **Question 4**
 How much is job satisfaction expected to increase per unit of positive affect, holding all else constant? 
@@ -545,30 +556,31 @@ summary(PA_model)
 </p>
 </details>
 
+<br>
 
 ##### **Question 5**
-
 Is positive affect a strong predictor of job satisfaction? 
 
 This is reasonably difficult to judge in raw units, not having a good sense of the scale of each measure, so a good trick is to look at the standardized beta coefficient using std_beta()
 
-```{r}
+```{r results=T}
 std_beta(PA_model)
 ```
 
 In which case we can see more easily that the effect is relatively small, and using the CIs as a rough heuristic to guide interpretation, could be between a very small to moderately-small effect.
 
+<br>
 
 ##### **Question 6**
-
 Is there still a lot of variance to explain at the group level? 
 
-```{r}
+```{r results=T}
 icc(PA_model)
 ```
 
 With an ICC of .1096, we're still talking about a fair bit of variance accounted for by the clustering variable group. We've barely reduced it from before in fact. 
 
+<br>
 
 ## LME4 syntax / Design formula explainer 
 
@@ -583,6 +595,8 @@ y ~ 1 + x
 
 Where the one stands in for the intercept, and we don't have to include the parameter terms (i.e., $\beta$ here).
 
+<br>
+
 ##### Categorical variables 
 
 R will attempt to detect when you have provided categorical variables, but does not have 100% accuracy. If you supply a character vector (i.e., data where each group is identified by a word or letter not a number) it will treat these like categories. If you provide a numeric variable (e.g., where categories identified by "1", "2", "3") you will have to coerce it to be a factor to make R assume that it is categorical, e.g.;
@@ -591,6 +605,7 @@ R will attempt to detect when you have provided categorical variables, but does 
 y ~ 1 + as.factor(x)
 ```
 
+<br>
 
 ### Multilevel syntax 
 

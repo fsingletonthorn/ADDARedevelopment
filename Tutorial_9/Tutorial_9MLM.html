@@ -380,8 +380,8 @@ $(document).ready(function () {
 <h2>Starting up</h2>
 <div id="open-the-project" class="section level4">
 <h4>Open the project</h4>
-<p>First thing to know is if you have any problems at any point let one of the tutors know and we’ll come to help out! <em>Please also make sure that you have opened this document (lab9.html) in Google Chrome. If you do not have tabs up the top of this file, you should reopen this file in Google Chrome.</em></p>
-<p>We’re going to be using R and RStudio today. R is a free software environment for statistical analysis, computing and plotting. It runs on most computer platforms, including Windows and MacOS. It takes a little getting used to, but is by far the easiest way of running multilevel models. If you want to install it on your own computer, follow the instructions <a href="https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/">here</a> to download both R and RStudio.</p>
+<p>First thing to know is if you have any problems at any point let one of the tutors know and we’ll come to help out! <em>Please make sure that you have opened this document (lab9.html) in Google Chrome. If you do not have tabs up the top of this file, you should reopen it in Google Chrome.</em></p>
+<p>We’re going to be using R and RStudio today. R is a free software environment for statistical analysis, computing and plotting. It runs on most operating systems, including Windows and MacOS. It takes a little getting used to, but is by far the easiest way of running multilevel models. If you want to install it on your own computer, follow the instructions <a href="https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/">here</a> to download both R and RStudio.</p>
 <p>For today, the first thing you should do is <strong>unzip all of “tutorial_9.zip” into a new folder</strong>. You should then open up the “<em>Tutorial_9.Rproj</em>” file, <strong>without moving any of the contained files around</strong>. This is a way of opening R and R studio in a contained environment, so that all of the commands presented in this tutorial will work as intended.</p>
 <details>
 <summary>Walkthrough</summary>
@@ -447,11 +447,11 @@ You can pass multiple augments to functions by separating them with commas, for 
 </p>
 </details>
 <p><br></p>
-<p><em>siop &lt;- read_csv(“siop.csv”)</em> tells R to save the output of the function <em>read_csv(“siop.csv”)</em> as <em>siop</em> in the workspace (i.e., R’s short term memory).</p>
+<p><em>siop &lt;- read_csv(“siop.csv”)</em> tells R to save the output of the function <em>read_csv(“siop.csv”)</em> as <em>siop</em> in the workspace (i.e., R’s short term memory). You can look up the top right of R studio under “enviroment” to see which objects are currently in the workspace.</p>
 <p>We can <strong>view</strong> the files in Rstudio using the function <em>View()</em> (note the capital “V”).</p>
-<p>Notice we’ve got one file that is at the individual level (copy and paste the following code into your R session to see the data)</p>
+<p>Notice we’ve got one file that is at the individual level (copy and paste the following code into your R session to see the data - it will open as a new “tab” in RStudio)…</p>
 <pre class="r"><code>View(siop)</code></pre>
-<p>And one which is at the group level.</p>
+<p>… and one which is at the group level.</p>
 <pre class="r"><code>View(siop_group)</code></pre>
 </div>
 <div id="data-cleaning" class="section level3">
@@ -723,8 +723,9 @@ You can pass multiple augments to functions by separating them with commas, for 
 ## (Intercept)  0.07689    0.14481 49.00000   0.531    0.598</code></pre>
 </p>
 </details>
-<p>This model say that each person’s score is the product of their group membership plus random noise (i.e., the residuals).</p>
-<p>It assumes that the residuals are normally distrubited around a mean of zero, and we actually estimate the variance of the residuals, here 5.474).</p>
+<p><br></p>
+<p>This model says that each person’s score is the product of their group membership plus random noise (i.e., the residuals).</p>
+<p>It assumes that the residuals are normally distrubited around a mean of zero, and we estimate the variance of the residuals, here 5.474).</p>
 <p>It assumes that the group means are normally distributed around the overall intercept (here estimated as 0.08), and again the thing which we actually estimate is the variance of the distribution of group means (i.e., the variance of the group level intercepts), here 0.684.</p>
 <p>To visualize this see the plot below, which shows job satisfaction by group ID, with blue dots for the best linear unbiased prediction of each group’s true mean (i.e., the group intercepts).</p>
 <details>
@@ -734,6 +735,7 @@ You can pass multiple augments to functions by separating them with commas, for 
 <p>Figure 1. job satisfaction by group ID, blue points show the best linear unbiased predictor of each group’s true mean.</p>
 </p>
 </details>
+<p><br></p>
 </div>
 <div id="question-1" class="section level5">
 <h5><strong>Question 1</strong></h5>
@@ -828,6 +830,7 @@ sd(siop_merged$jobsat)</code></pre>
 <h5><strong>Question 5</strong></h5>
 <p>Is positive affect a strong predictor of job satisfaction?</p>
 <p>hint: <em>try std_beta(PA_model)</em> to get standardised estimates</p>
+<p><br></p>
 </div>
 <div id="question-6" class="section level5">
 <h5><strong>Question 6</strong></h5>
@@ -839,7 +842,7 @@ Is there still a lot of variance to explain at the group level?
 </p>
 </details>
 <p><br></p>
-<p>If you’ve still got time, try adding more predictors (e.g., “<em>new_model &lt;- lmer(&quot;jobsat ~ 1 + posaff + neglead + (1 | grpid)&quot;, data = siop_merged)</em>”) to the model!</p>
+<p><strong>If you’ve still got time, try adding more predictors (e.g., “<em>new_model &lt;- lmer(&quot;jobsat ~ 1 + posaff + neglead + (1 | grpid)&quot;, data = siop_merged)</em>”) to the model!</strong></p>
 <p><br></p>
 </div>
 </div>
@@ -919,30 +922,43 @@ summary(PA_model)</code></pre>
 <div id="question-answers" class="section level2">
 <h2>Question answers</h2>
 <p><br></p>
-<p><br></p>
 <div id="question-1-1" class="section level5">
 <h5><strong>Question 1</strong></h5>
 <p>How large is the intercept of the model? Looking at the dependent variable (its mean, range and standard deviation), does it look like this variable has been standardised? Why would that impact the intercept of our model?</p>
-<p>Hint: Try the following code:</p>
-<pre class="r"><code>mean(siop_merged$jobsat)
-range(siop_merged$jobsat)
-sd(siop_merged$jobsat)</code></pre>
+<p>Hint:</p>
+<p>Try the following code:</p>
+<pre class="r"><code>mean(siop_merged$jobsat)</code></pre>
+<pre><code>## [1] 0.07689012</code></pre>
+<pre class="r"><code>range(siop_merged$jobsat)</code></pre>
+<pre><code>## [1] -7.329338 10.192273</code></pre>
+<pre class="r"><code>sd(siop_merged$jobsat)</code></pre>
+<pre><code>## [1] 2.478885</code></pre>
 <p>Looking at the model output, it looks like job satisfaction has been mean centered (i.e., altered to have a mean of ~ 0), but not obviously standardized (i.e., it doesn’t have an SD of 1 for example). This is almost certainly fine.</p>
+<p><br></p>
 </div>
 <div id="question-2-1" class="section level5">
 <h5><strong>Question 2</strong></h5>
 <p>How big is the group level variance (the <em>groupid</em> intercept variance) as a proportion of total variance? Calculate the interclass correlation (you can do this by hand by taking <span class="math inline">\(variance_{groupid} / (variance_{groupid} + variance_{residual})\)</span> - and you can use R’s console like a calculator if you want to!)</p>
 <p>Answer:</p>
 <pre class="r"><code># You can calculate it by hand  
-0.6835 / (5.4741 + 0.6835)
-
-# Or you can use icc() from sjstats
+0.6835 / (5.4741 + 0.6835)</code></pre>
+<pre><code>## [1] 0.111001</code></pre>
+<pre class="r"><code># Or you can use icc() from sjstats
 icc(null_model)</code></pre>
+<pre><code>## 
+## Intraclass Correlation Coefficient for Linear mixed model
+## 
+## Family : gaussian (identity)
+## Formula: jobsat ~ 1 + (1 | grpid)
+## 
+##   ICC (grpid): 0.1110</code></pre>
+<p><br></p>
 </div>
 <div id="question-3-1" class="section level5">
 <h5><strong>Question 3</strong></h5>
 <p>Interpret the ICC - how big is the ICC? What does this ICC suggest?</p>
 <p>Answer: The ICC is not huge, but it is non-negligible, suggesting that a MLM is reasonable. A fair amount of the variance of our model appears to be accounted for by group, and in so far as we want to accurately model the world, it seems like a multilevel model might be a good way of doing so!</p>
+<p><br></p>
 </div>
 <div id="question-4-1" class="section level5">
 <h5><strong>Question 4</strong></h5>
@@ -956,19 +972,31 @@ icc(null_model)</code></pre>
 summary(PA_model)</code></pre>
 </p>
 </details>
+<p><br></p>
 </div>
 <div id="question-5-1" class="section level5">
 <h5><strong>Question 5</strong></h5>
 <p>Is positive affect a strong predictor of job satisfaction?</p>
 <p>This is reasonably difficult to judge in raw units, not having a good sense of the scale of each measure, so a good trick is to look at the standardized beta coefficient using std_beta()</p>
 <pre class="r"><code>std_beta(PA_model)</code></pre>
+<pre><code>##     term std.estimate  std.error   conf.low conf.high
+## 1 posaff    0.1682713 0.03501797 0.09963738 0.2369053</code></pre>
 <p>In which case we can see more easily that the effect is relatively small, and using the CIs as a rough heuristic to guide interpretation, could be between a very small to moderately-small effect.</p>
+<p><br></p>
 </div>
 <div id="question-6-1" class="section level5">
 <h5><strong>Question 6</strong></h5>
 <p>Is there still a lot of variance to explain at the group level?</p>
 <pre class="r"><code>icc(PA_model)</code></pre>
+<pre><code>## 
+## Intraclass Correlation Coefficient for Linear mixed model
+## 
+## Family : gaussian (identity)
+## Formula: jobsat ~ 1 + posaff + (1 | grpid)
+## 
+##   ICC (grpid): 0.1096</code></pre>
 <p>With an ICC of .1096, we’re still talking about a fair bit of variance accounted for by the clustering variable group. We’ve barely reduced it from before in fact.</p>
+<p><br></p>
 </div>
 </div>
 <div id="lme4-syntax-design-formula-explainer" class="section level2">
@@ -977,10 +1005,12 @@ summary(PA_model)</code></pre>
 <p>A good example is simple linear regression where we are predicting y with x. Normally we would think of this as something like <span class="math inline">\(\hat{y_i} = a + \beta x_i\)</span>, i.e., the predicted value of y for person i is equal to some intercept a, plus <span class="math inline">\(\beta\)</span> times their score on <span class="math inline">\(x\)</span>. In design formula terms this becomes:</p>
 <pre><code>y ~ 1 + x</code></pre>
 <p>Where the one stands in for the intercept, and we don’t have to include the parameter terms (i.e., <span class="math inline">\(\beta\)</span> here).</p>
+<p><br></p>
 <div id="categorical-variables" class="section level5">
 <h5>Categorical variables</h5>
 <p>R will attempt to detect when you have provided categorical variables, but does not have 100% accuracy. If you supply a character vector (i.e., data where each group is identified by a word or letter not a number) it will treat these like categories. If you provide a numeric variable (e.g., where categories identified by “1”, “2”, “3”) you will have to coerce it to be a factor to make R assume that it is categorical, e.g.;</p>
 <pre><code>y ~ 1 + as.factor(x)</code></pre>
+<p><br></p>
 </div>
 <div id="multilevel-syntax" class="section level3">
 <h3>Multilevel syntax</h3>
