@@ -167,7 +167,7 @@ We want to merge "siop" and "siop_group" by the variable that exists in both dat
 
 <br>
 
-**NOTE:** you will need to change "Key_Column" to the column name that exists in both "siop" and "siop_group", and don't forget to include the question marks around the variable name! 
+**NOTE:** you will need to change "Key_Column" to the column name that exists in both "siop" and "siop_group", and don't forget to include the quotation marks around the variable name! 
 
 <details><summary>Hint</summary>  
 <p>
