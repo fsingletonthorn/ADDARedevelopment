@@ -395,7 +395,7 @@ $(document).ready(function () {
 <h3>Setting up R Studio to run our analyses</h3>
 <p>Next, try running the following code by copying and pasting (<kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd>) it into your R session’s console. Take a look at the walkthrough below to see where the console will be in RStudio.</p>
 <pre class="r"><code># The following code ensures that the packages (like sub-programs that R uses to do things) are installed
-install.packages(&#39;lme4&#39;, &#39;lmerTest&#39;, &#39;tidyverse&#39;, &#39;readr&#39;, &#39;sjstats&#39;)
+install.packages(c(&#39;lme4&#39;, &#39;lmerTest&#39;, &#39;tidyverse&#39;, &#39;readr&#39;, &#39;sjstats&#39;))
 # This bit of code tells R to load and attach (i.e., make avaliable) those packages so that the functions they include can be used
 library(&#39;lme4&#39;)
 library(&#39;lmerTest&#39;)
@@ -771,7 +771,7 @@ sd(siop_merged$jobsat)</code></pre>
 <p>This model with random intercepts for group and a single level 1 predictor (positive affect) may be written:</p>
 <p><span class="math inline">\(JobSat_{ij} = \gamma_{00} + \gamma_{10} PosAff_{ij} + u_{0j} + \epsilon_{ij}\)</span></p>
 <p>This means each person’s job satisfaction is equal to the overall intercept ( <span class="math inline">\(\gamma_{00}\)</span> ), a regression term times their positive affect <span class="math inline">\(\gamma_{10} (PosAff_{ij})\)</span>, a random effect for their group (<span class="math inline">\(u_{0j}\)</span>), plus an error term (<span class="math inline">\(\epsilon_{ij}\)</span>) (i.e., the residual, as the MLM will not perfectly predict their score).</p>
-<p>To write out this model in R all we need to do is add “+ posaff” (the variable name for positive affect) to the earlier null model. By tradition we’ll put it after the intercept and before the random slopes. Run the following code to save the model output as PA_model.</p>
+<p>To write out this model in R all we need to do is add “+ posaff” (the variable name for positive affect) to the earlier null model. By tradition we’ll put it after the intercept and before the random effects. Run the following code to save the model output as PA_model.</p>
 <pre class="r"><code>PA_model &lt;- lmer(&quot;jobsat ~ 1 + posaff + (1 | grpid)&quot;, data = siop_merged) </code></pre>
 <div id="which-should-be-read-as-1" class="section level4">
 <h4>Which should be read as:</h4>
