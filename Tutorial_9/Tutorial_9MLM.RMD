@@ -40,6 +40,7 @@ For today, the first thing you should do is **unzip all of "tutorial_9.zip" into
 
 <details><summary>Walkthrough</summary>
 <p>
+
 ![](Images/extracting_files.gif)
 </p>
 </details>

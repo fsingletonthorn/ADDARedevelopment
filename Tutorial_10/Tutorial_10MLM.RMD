@@ -23,6 +23,8 @@ for(package in c('lme4', 'lmerTest', 'tidyverse', 'foreign', 'readr', 'sjstats',
     }
 }
 
+## For next year, change this so that we add the group level predictor at the last step rather than adding the interaction terms !!!! 
+
 ```
 
 # {.tabset  .tabset-fade}
@@ -49,7 +51,7 @@ library('sjstats')
 ```
 
 #### The data
-The data for this week's exercise is the same as last week's - it is an organizational psychology data-set described in Klein et al. (2000), and is stored as *siop_merged.csv*.
+The data for this week's exercise is the same as last week's - it is an organizational psychology data-set described in Klein et al. (2000), and is stored as *siop_merged.csv*, except that it has one additional variable.
 
 #### Variables
 
@@ -78,7 +80,7 @@ siop_merged <- read.csv("siop_merged.csv")
 
 #### The data 
 
-The first variables we'll be dealing with today are  "Job satisfaction", "Positive affect" and "Physical work environment (group level)". As always, it's a good idea to plot your data. This data has three variables, so you can either plot it with facets, or use a 3D plot. Click and drag this one to have a look at your data:
+The first variables we'll be dealing with today are  "Job satisfaction", "Positive affect" and "Physical work environment (group level)". As always, it's a good idea to plot your data. This data has more than 2 variables, so you can either plot it with facets, or use a 3D plot. Click and drag this one to have a look at your data:
 
 ```{r echo = FALSE, message=FALSE, warning=FALSE}
 library(plotly)
@@ -102,13 +104,13 @@ Figure 1. A 3D scatterplot of Job satisfaction, positive affect and group physic
 
 #### Question `r q <- 1; q`. 
 
-What is the relationship between positive affect and job satisfaction? Is there a clear directional relationship? 
+Looking at Figure 1 what is the relationship between positive affect and job satisfaction? Is there a clear directional relationship? 
 
 <br>
 
 ## Part 2 - Random intercepts model with a predictor at the group level
 
-Let's fit a random intercept model with one individual level predictor - we'll start with positive affect - and one group level predictor - physical work environment. 
+Let's fit a random intercept model with one individual level predictor - we'll start with positive affect - and one group level predictor - physical work environment.
 
 This model has random intercepts for group, a single level 1 predictor (positive affect) and a single group level predictor, and may be written as:
 
@@ -145,9 +147,7 @@ summary(PA_PE_model)
 
 
 
-
-
-<details><summary>Figure 2</summary>
+<details open><summary>Figure 2</summary>
 <p>
 
 ```{r echo=F}
@@ -155,7 +155,6 @@ summary(PA_PE_model)
 ggplot(siop_merged, aes(x = posaff, y = jobsat, group = as.factor(grpid), colour = as.factor(grpid))) + 
   geom_point()  + xlab("Positive affect") + ylab("Job satisfaction") + 
   geom_abline(slope = PA_PE_model@beta[2], intercept = coef(PA_PE_model)[[1]][,1]+(coef(PA_PE_model)[[1]][,3]*unique(siop_merged$physen)), colour = as.factor(1:50), alpha = .5) + theme_classic()+ theme(legend.position="none")
-
 
 ```
 
@@ -170,7 +169,7 @@ Figure 2. Job satisfaction by positive affect, lines show the estimated relation
 
 #### Question `r q<-q+1; q`. 
 
-What is the overall relationship between positive affect and job satisfaction? Which value from your model summary tells us about this value?
+What is the estimated relationship between positive affect and job satisfaction? 
 
 <br>
 
@@ -185,7 +184,7 @@ Looking at the equation above and comparing it to your model summary, can you id
 
 ## Part 3 - Random intercepts and random slopes 
 
-Now we will include a random slope for the relationship between positive affect and job satisfaction as well as a group level predictor for the intercept, but without other predictors for the slope. This means that positive affect becomes both a fixed and a random effect. 
+Now we will include a random slope for the relationship between positive affect and job satisfaction as well as a group level predictor for the intercept, but without other predictors for the slope. 
 
 This model with random intercepts and a random slope for group, a single group level predictor (physical work environment), and a single level 1 predictor (positive affect) may be written:
 
@@ -196,7 +195,10 @@ We can break this equation down into two parts, the fixed and random effects.
 
 The fixed effects say that each observed data point is predicted by an overall intercept ($\gamma_{00}$), a regression term times their positive affect $\gamma_{10} (PosAff_{ij})$, and a group level predictor $\gamma_{01} PhysEn_{0j}$. 
 
-The random effects say that the slopes can change for each group ($u_{1j}PosAff_{ij}$), and the intercepts can change by group  ($u_{0j}$).
+The random effects say that the slopes can change for each group ($u_{1j}PosAff_{ij}$), and the intercepts can change by group ($u_{0j}$). Note that the random slopes parameter ($u_{1j}$ from $u_{1j}PosAff_{ij}$) is playing the role of a normal regression coefficent, except that now we no longer assume that this value is the same for every group - instead we assume that each group has their own value for $u_{1j}$, each drawn from a normal distribution with a mean of 0 and a variance that we estimate.
+
+
+In R we can run the model using the following code:
 
 ```{r}
 RS_model <- lmer("jobsat ~ 1 + posaff + physen + (1 + posaff | grpid)", data = siop_merged)
@@ -210,13 +212,11 @@ item <-knitr::kable(data_frame("Terms"=c("jobsat ~","1 +", "posaff", "physen", "
 
 ```
 
-##### Which should be read as:
+##### The design formula should be read as:
 
 `r item`
 
-This model says that the relationship between positive affect and job satisfaction changes in different groups by some estimated amount, and that we can predict the groups' true mean scores using their group's physical environment.
-
-Remember *summary(RS_model)* is useful in getting a summary of your output out! 
+To take a look at the output, you can use *summary(RS_model)*. 
 
 
 ```{r echo = TRUE}
@@ -251,21 +251,41 @@ Figure 3. Job satisfaction by positive affect, lines show the estimated relation
 
 What are we saying about the relationship between job satisfaction and positive affect by including random slopes? Do you think that this claim is a plausible in the context of the real world?
 
+
+<details><summary>Hint</summary>
+<p>
+
+Hint: What do you think the relationship between positive affect and job satisfaction would be in a toy store? How about in a meat packing plant? Do you think the relationship would be exactly identical?
+
+</p>
+</details>
+
 <br>
+
+
+#### Question `r q<-q+1; q`.
+
+Looking at each of the models, which do you think is best (take a look at "*summary(PA_PE_model)* and *summary(RS_model)*). Do we even need random slopes? 
+
+Hint: Compare the amount of residual variance in *RS_model* to the amount seen in *PA_PE_model*. Does the increased complexity of the random slopes model seem worth the reduction in residual variance? 
+
+<br>
+
+
 
 ## Part 4 - Random intercepts and random slopes with a group level predictor
 
-Let's fit a random intercept and slopes model with one individual level predictor - again positive affect - and one group level predictor - physical work environment, and one group level predictor of the random effects. 
+Let's fit a random intercept and slopes model with one individual level predictor - again positive affect - and one group level predictor - physical work environment, and one group level predictor of the random slopes - physical work environment again.
 
-$JobSat_{ij} = \gamma_{00} + \gamma_{10} PosAff_{ij} + \gamma_{01} PhysEn_{0j} + \gamma_{10} (PosAff_{ij} \times PhysEn_{0j}) + u_{0j} + u_{1j}PosAff_{ij} + \epsilon_{ij}$
+$JobSat_{ij} = \gamma_{00} + \gamma_{10} PosAff_{ij} + \gamma_{01} PhysEn_{0j} + \gamma_{11} (PosAff_{ij} \times PhysEn_{0j}) + u_{0j} + u_{1j}PosAff_{ij} + \epsilon_{ij}$
 
-This means each person's job satisfaction is equal to the overall intercept ($\gamma_{00}$), a regression term times their positive affect ($\gamma_{10} (PosAff_{ij})$), a regression term times the group level physical enviroment ($\gamma_{01} PhysEn_{0j}$), a interaction effect between positive affect and physical work enviroment ($\gamma_{10} (PosAff_{ij} \times PhysEn_{0j})$), a random effect times the individual level predictor giving us random slopes ($u_{1j}PosAff_{ij}$),  a random effect for group ($u_{0j}$), plus an error term for the individual ($\epsilon_{ij}$).
+This means each person's job satisfaction is equal to the overall intercept ($\gamma_{00}$), a regression term times their positive affect ($\gamma_{10} (PosAff_{ij})$), a regression term times the group level physical enviroment ($\gamma_{01} PhysEn_{0j}$), a interaction effect between positive affect and physical work enviroment ($\gamma_{11} (PosAff_{ij} \times PhysEn_{0j})$), a random effect times the individual level predictor giving us random slopes ($u_{1j}PosAff_{ij}$),  a random effect for group ($u_{0j}$), plus an error term for the individual ($\epsilon_{ij}$).
 
-You can run the model in R by copying and pasting the following into your session (make sure you've loaded *siop_merged* first):
+You can run the model in R by copying and pasting the following into your session (we change the optimizer used here to avoid a minimization error you get otherwise):
 
 ```{r}
 
-RS_model_2 <- lmer("jobsat ~ 1 + posaff + physen + posaff * physen + (1 + posaff | grpid)", data = siop_merged)
+RS_model_2 <- lmer("jobsat ~ 1 + posaff + physen + posaff * physen + (1 + posaff | grpid)", data = siop_merged, control = lmerControl(optimizer="bobyqa"))
 
 ```
 
@@ -287,11 +307,20 @@ summary(RS_model_2)
 
 ```
 
-This model says that the relationship between positive affect and job satisfaction changes in different groups by some estimated amount, and that we can predict the groups' true mean scores using their group's physical environment, and that the relationship between positive affect and job satisfaction is influenced by the physical environment.
+<details><summary> Optional optimizer change explanation </summary>
+<p>
 
-Remember *summary(RS_model_2)* is useful in getting a summary of your output out! 
+We've changed the optimister used here (*control = lmerControl(optimizer="bobyqa")*) because otherwise you'll get an optimizer warning when you run this model. For today, you should ignore this issue entierly  (here we've had a play around with different optimizers and are confident that these results are more or less reasonable). If you do get an optimizer warning in your own reserach this may not be the end of the world - but you should definitly consult with your supervisor, after first checking that your model is not somehow misspecified.
+
+</p>
+</details>
+
+<br>
+
+Use *summary(RS_model_2)* to get summary of your model output! 
 
 To visualize this, we can again plot job satisfaction by positive affect and draw a regression line for each group. The regression line slopes and intercepts still change by group because we have random slopes and intercepts, however we are now trying to predict the slope of each group with the variable physical environment.
+
 
 <details open><summary>Figure 4</summary>
 <p>
@@ -314,28 +343,18 @@ Figure 4. Job satisfaction by positive affect, lines show the estimated relation
 
 #### Question `r q<-q+1; q`.
 
-What are we saying when we include the interaction term in our model? Does it look like it's worth including this term in the model?
+What are we saying when we include the interaction between positive affect and physical work environment in our model? 
 
 <br>
 
 #### Question `r q<-q+1; q`.
 
-How does the variance of the random effect for positive affect change between models?
+How does the residual variance change when adding the cross level interaction?
 
 <br>
 
 
-#### Question `r q<-q+1; q`.
-
-Looking at each of the models, which do you think is best (take a look at "*summary(PA_PE_model)* and *summary(RS_model)*). Do we even need random slopes? 
-
-Hint: Compare the amount of residual variance in *RS_model* to the amount seen in *PA_PE_model*. Does the increased complexity of the random slopes model seem worth the reduction in residual variance? 
-
-<br>
-
-
-
-### If you have any time left, have a play around with different predictor and predicted variables!   
+### If you have any time left, have a play around with different predictor and predicted variables!
 
 
 <br>
@@ -368,7 +387,7 @@ summary(RS_model_2)
 
 #### Question 1. 
 
-*What is the relationship between positive affect and job satisfaction? Is there a clear directional relationship?*
+*Looking at Figure 1, what is the relationship between positive affect and job satisfaction? Is there a clear directional relationship?*
 
 Taking a look at figure 1, it looks like positive affect is positively correlated with job satisfaction.
 
@@ -380,7 +399,7 @@ Taking a look at figure 1, it looks like positive affect is positively correlate
 
 #### Question 2.
 
-*What is the overall relationship between positive affect and job satisfaction? Which value from your model summary tells us about this value?*
+*What is the estimated relationship between positive affect and job satisfaction?*
 
 This model suggests that there is a positive relationship between positive affect and job satisfaction, with an increase of one unit of positive affect leading to a predicted increase of 0.428 units of job satisfaction. 
 
@@ -417,34 +436,33 @@ We are saying that the relationship between positive affect and job satisfaction
 <br>
 
 #### Question 5.
-
-*What are we saying when we include the interaction term in our model?* 
-
-We are saying that the relationship between job satisfaction and positive affect can be predicted using the physical work environment.
-<br>
-
-<br>
-
-#### Question 6. 
-*How does the variance of the random effect for positive affect change between models?*
-
-The residual variance actually *increases* - without interaction: 0.04955, going to  0.05875 with the interaction. This is something that can never happen when adding terms in normal multiple regression, but can under rare circumstances in multilevel models. 
-
-You do **not** need to know why, but this paper http://www.stat.columbia.edu/~gelman/stuff_for_blog/adding.pdf gives as readable an explanation as is available! In the context of interactions it is very difficult to figure out what this result implies and I recommend spending precious thinking time elsewhere.
-
-<br>
-
-<br>
-
-#### Question 7.
 *Looking at each of the models, which do you think is best (take a look at summary(PA_PE_model) and summary(RS_model)). Do we even need random slopes?*
 
 *Hint: Compare the amount of residual variance in RS_model to the amount seen in PA_PE_model. Does the increased complexity of the random slopes model seem worth the reduction in residual variance?*
 
-There is a very small reduction in residual variance when including the random slopes, going from 5.3205 to 5.27734, a reduction of less than 1% (i.e., $((5.3205 - 5.27734)/5.3205)*100$). However, this term may make enough sense on purely conceptual grounds that excluding it from the model would be ill advised. Without an in depth understanding of the theoretical context, it's difficult to make concrete suggestions.
+There is a very small reduction in residual variance when including the random slopes, going from 5.3205 to 5.27736, a reduction of less than 1% (i.e., $((5.3205 - 5.27736)/5.3205)*100$). However, this term may make enough sense on purely conceptual grounds that excluding it from the model would be ill advised. Without an in depth understanding of the theoretical context, it's difficult to make concrete suggestions.
 
 <br>
 
 <br>
 
+#### Question 6.
 
+*What are we saying when we include the interaction between positive affect and physical work environment in our model?* 
+
+We are saying that the relationship between job satisfaction and positive affect can be predicted using the physical work environment.
+
+<br>
+
+<br>
+
+#### Question 7. 
+*How does the residual variance change when adding the cross level interaction?*
+
+The residual variance actually *increases* - without interaction: 5.27736, going to  5.27738 with the interaction. This is something that can never happen when adding terms in normal multiple regression, but can under rare circumstances in multilevel models.
+
+You do **not** need to know why for this course, but this paper http://www.stat.columbia.edu/~gelman/stuff_for_blog/adding.pdf gives as readable an explanation as is available! In the context of interactions it is very difficult to figure out what this result implies and I recommend spending precious thinking time elsewhere untill you run into this issue in your own research and then really have to figure it out. 
+
+<br>
+
+<br>
